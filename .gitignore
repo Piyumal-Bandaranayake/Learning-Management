@@ -1,0 +1,35 @@
+# User-specific configuration
+config/database.php
+
+# Uploads and dynamic content
+uploads/*
+!uploads/.gitkeep
+
+# Temporary files and logs
+*.log
+tmp/
+temp/
+
+# Development and migration scripts (one-time use)
+fix_database.php
+update_timetable_db.php
+setup_database.bat
+
+# IDE and Editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS generated files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# Dependencies
+node_modules/
+vendor/
+
+# Database dumps (optional, but often good to ignore if they contain data)
+# database.sql
