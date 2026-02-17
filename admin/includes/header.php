@@ -1,3 +1,7 @@
+<?php 
+require_once dirname(__DIR__, 2) . '/includes/auth_check.php';
+require_admin();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
