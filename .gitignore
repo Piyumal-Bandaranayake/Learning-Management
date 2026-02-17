@@ -1,35 +1,39 @@
-# User-specific configuration
-config/database.php
+# OS generated files
+.DS_Store
+Thumbs.db
+Desktop.ini
+ehthumbs.db
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Environment & config
+.env
+phpinfo.php
+
+# Logs & temp files
+*.log
+error_log
+tmp/
+temp/
+# /temp/
 
 # Uploads and dynamic content
 uploads/*
 !uploads/.gitkeep
 
-# Temporary files and logs
-*.log
-tmp/
-temp/
+# Dependencies
+node_modules/
+vendor/
+composer.lock
 
-# Development and migration scripts (one-time use)
+# Development / one-time scripts
 fix_database.php
 update_timetable_db.php
 setup_database.bat
 
-# IDE and Editor files
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# OS generated files
-.DS_Store
-Thumbs.db
-ehthumbs.db
-Desktop.ini
-
-# Dependencies
-node_modules/
-vendor/
-
-# Database dumps (optional, but often good to ignore if they contain data)
+# Database dumps (optional – uncomment if needed)
 # database.sql
