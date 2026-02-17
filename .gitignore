@@ -1,0 +1,23 @@
+# OS files
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# PHP/Composer
+vendor/
+composer.lock
+.env
+
+# XAMPP/Local environment
+phpinfo.php
+error_log
+*.log
+
+# Project specific ignores (if any)
+# /temp/
