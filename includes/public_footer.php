@@ -32,7 +32,7 @@
                     <ul class="space-y-4 text-blue-100/70 text-sm">
                         <li><a href="index.php" class="hover:text-white transition-colors">Home</a></li>
                         <li><a href="about.php" class="hover:text-white transition-colors">About Us</a></li>
-                        <li><a href="all-classes.php" class="hover:text-white transition-colors">Course Catalog</a></li>
+                        <li><a href="all-Courses.php" class="hover:text-white transition-colors">Course Catalog</a></li>
                         <li><a href="public-timetable.php" class="hover:text-white transition-colors">Timetable</a></li>
                     </ul>
                 </div>
@@ -81,11 +81,11 @@
         function toggleMobileMenu() {
             const menu = document.getElementById('mobile-menu');
             const icon = document.getElementById('menu-icon');
-            if (menu.classList.contains('hidden')) {
-                menu.classList.remove('hidden');
+            if (menu.CourseList.contains('hidden')) {
+                menu.CourseList.remove('hidden');
                 icon.setAttribute('data-lucide', 'x');
             } else {
-                menu.classList.add('hidden');
+                menu.CourseList.add('hidden');
                 icon.setAttribute('data-lucide', 'menu');
             }
             lucide.createIcons();

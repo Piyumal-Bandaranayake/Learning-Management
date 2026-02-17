@@ -7,11 +7,11 @@
         <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
                 <h1 class="text-2xl md:text-3xl font-bold text-navy mb-2">Welcome back, John! 👋</h1>
-                <p class="text-gray-500 max-w-md">You have 2 classes today and 3 pending approvals. Keep up the great work and stay on track with your studies.</p>
+                <p class="text-gray-500 max-w-md">You have 2 Courses today and 3 pending approvals. Keep up the great work and stay on track with your studies.</p>
                 <div class="mt-6 flex flex-wrap gap-4">
-                    <a href="classes.php" class="bg-navy text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-navy-dark transition-all flex items-center gap-2 shadow-lg shadow-navy/20">
+                    <a href="Courses.php" class="bg-navy text-white px-6 py-2.5 rounded-xl font-semibold hover:bg-navy-dark transition-all flex items-center gap-2 shadow-lg shadow-navy/20">
                         <i data-lucide="plus-circle" class="w-5 h-5"></i>
-                        Register Class
+                        Register Course
                     </a>
                     <a href="timetable.php" class="bg-blue-50 text-navy px-6 py-2.5 rounded-xl font-semibold hover:bg-blue-100 transition-all">
                         View Schedule
@@ -30,7 +30,7 @@
 
     <!-- Summary Statistics Grid -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-        <!-- Total Classes -->
+        <!-- Total Courses -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-navy border-l border-r border-b border-gray-100 hover-lift">
             <div class="flex items-center justify-between mb-4">
                 <div class="p-3 bg-blue-50 rounded-xl">
@@ -54,7 +54,7 @@
             <p class="text-3xl font-bold text-navy">3</p>
         </div>
 
-        <!-- Approved Classes -->
+        <!-- Approved Courses -->
         <div class="bg-white p-6 rounded-2xl shadow-sm border-t-4 border-green-500 border-l border-r border-b border-gray-100 hover-lift">
             <div class="flex items-center justify-between mb-4">
                 <div class="p-3 bg-green-50 rounded-xl">
@@ -62,7 +62,7 @@
                 </div>
                 <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-full">Successfully Joined</span>
             </div>
-            <h3 class="text-gray-500 font-medium mb-1">Approved Classes</h3>
+            <h3 class="text-gray-500 font-medium mb-1">Approved Courses</h3>
             <p class="text-3xl font-bold text-navy">9</p>
         </div>
     </div>
@@ -82,7 +82,7 @@
                     </div>
                     <div>
                         <h4 class="font-bold text-navy italic">"Introduction to UI/UX"</h4>
-                        <p class="text-sm text-gray-500">Your registration for this class has been approved. You can now access materials.</p>
+                        <p class="text-sm text-gray-500">Your registration for this Course has been approved. You can now access materials.</p>
                         <span class="text-[10px] uppercase tracking-wider font-bold text-gray-400">2 hours ago</span>
                     </div>
                 </div>
@@ -109,10 +109,10 @@
             </div>
         </div>
 
-        <!-- Upcoming Classes -->
+        <!-- Upcoming Courses -->
         <div class="bg-white rounded-2xl p-6 shadow-sm border border-gray-100">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-xl font-bold text-navy">Upcoming Classes</h2>
+                <h2 class="text-xl font-bold text-navy">Upcoming Courses</h2>
                 <button class="text-navy text-sm font-semibold hover:underline">Full Timetable</button>
             </div>
             <div class="space-y-4">
