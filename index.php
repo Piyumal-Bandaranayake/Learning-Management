@@ -41,11 +41,26 @@
                 </div>
             </div>
 
-            <!-- Hero Image/Graphic -->
+            <!-- Hero Image/Graphic Slideshow -->
             <div class="relative hidden lg:block">
-                <div class="relative z-10 bg-white p-4 rounded-3xl shadow-2xl border border-gray-100 rotate-2 hover:rotate-0 transition-transform duration-500">
-                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600" alt="Students Learning" class="rounded-2xl shadow-inner">
-                    <div class="absolute -bottom-6 -left-6 bg-navy text-white p-6 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce">
+                <div class="relative z-10 bg-white p-4 rounded-3xl shadow-2xl border border-gray-100 rotate-2 hover:rotate-0 transition-transform duration-500 overflow-hidden h-[450px]">
+                    <!-- Slides Container -->
+                    <div id="hero-slideshow" class="relative h-full w-full">
+                        <!-- Slide 1 -->
+                        <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&q=80&w=600" 
+                             class="hero-slide absolute inset-0 w-full h-full object-cover rounded-2xl transition-opacity duration-1000 opacity-100" alt="Students Learning">
+                        
+                        <!-- Slide 2 -->
+                        <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&q=80&w=600" 
+                             class="hero-slide absolute inset-0 w-full h-full object-cover rounded-2xl transition-opacity duration-1000 opacity-0" alt="Collaborative Learning">
+                        
+                        <!-- Slide 3 -->
+                        <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&q=80&w=600" 
+                             class="hero-slide absolute inset-0 w-full h-full object-cover rounded-2xl transition-opacity duration-1000 opacity-0" alt="Creative Studio">
+                    </div>
+
+                    <!-- Floating Badge (Stays on top) -->
+                    <div class="absolute -bottom-6 -left-6 bg-navy text-white p-6 rounded-2xl shadow-xl flex items-center gap-4 animate-bounce z-20">
                         <div class="bg-white/20 p-2 rounded-lg">
                             <i data-lucide="award" class="w-6 h-6"></i>
                         </div>
@@ -55,6 +70,7 @@
                         </div>
                     </div>
                 </div>
+                
                 <!-- Background decorations -->
                 <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-navy-light/5 rounded-full blur-3xl -z-10"></div>
                 <div class="absolute -top-10 -right-10 w-32 h-32 bg-navy/10 rounded-full blur-2xl"></div>
@@ -62,6 +78,30 @@
         </div>
     </div>
 </section>
+
+<!-- Slideshow Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const slides = document.querySelectorAll('.hero-slide');
+        let currentSlide = 0;
+
+        function nextSlide() {
+            // Hide current
+            slides[currentSlide].classList.replace('opacity-100', 'opacity-0');
+            
+            // Increment
+            currentSlide = (currentSlide + 1) % slides.length;
+            
+            // Show new
+            slides[currentSlide].classList.replace('opacity-0', 'opacity-100');
+        }
+
+        // Cycle every 4 seconds
+        if(slides.length > 0) {
+            setInterval(nextSlide, 4000);
+        }
+    });
+</script>
 
 <!-- Features Section -->
 <section class="py-24 bg-gray-50">
