@@ -1,10 +1,10 @@
 <?php include 'includes/public_header.php'; ?>
 
 <!-- Page Header -->
-<header class="bg-navy text-white py-24 relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <h1 class="text-5xl font-extrabold mb-6 italic tracking-tight">Our Story & <span class="text-blue-400 underline decoration-wavy decoration-2">Vision</span></h1>
-        <p class="text-xl text-blue-100/70 max-w-2xl leading-relaxed italic">
+<header class="bg-navy text-white py-24 relative overflow-hidden border-b-[6px] border-blue-500/20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <h1 class="text-5xl lg:text-6xl font-black text-white mb-6 italic tracking-tight uppercase">Our Story and  Vision</h1>
+        <p class="text-xl text-blue-100/70 max-w-2xl leading-relaxed italic font-medium mx-auto">
             At LMS Core, we believe education is the key to unlocking human potential. Discover how we're reshaping the learning landscape.
         </p>
     </div>
@@ -46,31 +46,10 @@
     </div>
 </section>
 
-<!-- Stats Section -->
-<section class="py-24 bg-navy text-white relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-12 text-center">
-            <div>
-                <p class="text-6xl font-extrabold text-blue-400 mb-2">15k+</p>
-                <p class="text-sm uppercase tracking-widest font-bold opacity-70 italic">Global Students</p>
-            </div>
-            <div>
-                <p class="text-6xl font-extrabold text-blue-400 mb-2">450+</p>
-                <p class="text-sm uppercase tracking-widest font-bold opacity-70 italic">Expert Tutors</p>
-            </div>
-            <div>
-                <p class="text-6xl font-extrabold text-blue-400 mb-2">120+</p>
-                <p class="text-sm uppercase tracking-widest font-bold opacity-70 italic">Countries</p>
-            </div>
-            <div>
-                <p class="text-6xl font-extrabold text-blue-400 mb-2">99%</p>
-                <p class="text-sm uppercase tracking-widest font-bold opacity-70 italic">Satisfaction</p>
-            </div>
-        </div>
-    </div>
-    <!-- Subtle Gradient Overlay -->
-    <div class="absolute inset-0 bg-gradient-to-br from-navy via-navy to-blue-900 opacity-50"></div>
-</section>
+<!-- Core Principles Divider -->
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="w-24 h-1 bg-navy/20 rounded-full mx-auto"></div>
+</div>
 
 <!-- Why Choose Us Cards -->
 <section class="py-24 bg-gray-50">
@@ -88,7 +67,7 @@
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover-scale transition-all">
                 <i data-lucide="zap" class="w-10 h-10 text-navy mb-6"></i>
                 <h3 class="font-bold text-navy text-lg mb-3">Live Interaction</h3>
-                <p class="text-sm text-gray-500 leading-relaxed italic">Direct Q&A sessions with instructors during every live class module.</p>
+                <p class="text-sm text-gray-500 leading-relaxed italic">Direct Q&A sessions with instructors during every live Course module.</p>
             </div>
             <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100 hover-scale transition-all">
                 <i data-lucide="globe" class="w-10 h-10 text-navy mb-6"></i>
