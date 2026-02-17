@@ -1,0 +1,23 @@
+</main> <!-- End Main Content -->
+</div> <!-- End Sidebar Flexbox -->
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Sidebar logic
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const overlay = document.getElementById('sidebar-overlay');
+            
+            if (sidebar.classList.contains('-translate-x-full')) {
+                sidebar.classList.remove('-translate-x-full');
+                overlay.classList.remove('hidden');
+            } else {
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
