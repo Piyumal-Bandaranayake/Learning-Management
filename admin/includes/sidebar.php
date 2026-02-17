@@ -20,14 +20,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <span>Dashboard</span>
         </a>
 
-        <a href="manage-classes.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'manage-classes.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
+        <a href="manage-courses.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'manage-courses.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
             <i data-lucide="book-copy" class="w-5 h-5"></i>
-            <span>Manage Classes</span>
+            <span>Manage Courses</span>
         </a>
 
-        <a href="add-class.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'add-class.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
+        <a href="add-course.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'add-course.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
             <i data-lucide="plus-square" class="w-5 h-5"></i>
-            <span>Add New Class</span>
+            <span>Add New Course</span>
         </a>
 
         <div class="text-[10px] uppercase tracking-[0.2em] font-black text-blue-400/50 px-4 mt-8 mb-2 italic">Students & Fees</div>
@@ -35,7 +35,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a href="registrations.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'registrations.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
             <i data-lucide="list-checks" class="w-5 h-5"></i>
             <span>Registrations</span>
-            <span class="ml-auto bg-amber-500 text-[10px] px-1.5 py-0.5 rounded-full text-white">4</span>
+            <?php 
+            if (isset($db)) {
+                $pending_nav_count = $db->query("SELECT COUNT(*) FROM registrations WHERE status = 'pending'")->fetchColumn();
+                if ($pending_nav_count > 0) {
+                    echo '<span class="ml-auto bg-amber-500 text-[10px] px-1.5 py-0.5 rounded-full text-white">' . $pending_nav_count . '</span>';
+                }
+            }
+            ?>
         </a>
 
         <a href="students.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'students.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
@@ -43,19 +50,36 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <span>Students List</span>
         </a>
 
-        <div class="text-[10px] uppercase tracking-[0.2em] font-black text-blue-400/50 px-4 mt-8 mb-2 italic">System</div>
+        <div class="text-[10px] uppercase tracking-[0.2em] font-black text-blue-400/50 px-4 mt-8 mb-2 italic">Timetable</div>
 
-        <a href="reports.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'reports.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
-            <i data-lucide="bar-chart-3" class="w-5 h-5"></i>
-            <span>System Reports</span>
+        <a href="manage-timetable.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'manage-timetable.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
+            <i data-lucide="calendar" class="w-5 h-5"></i>
+            <span>Manage Timetable</span>
+        </a>
+
+        <a href="add-timetable.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'add-timetable.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
+            <i data-lucide="calendar-plus" class="w-5 h-5"></i>
+            <span>Add Timetable Entry</span>
+        </a>
+
+        <div class="text-[10px] uppercase tracking-[0.2em] font-black text-blue-400/50 px-4 mt-8 mb-2 italic">Website Settings</div>
+
+        <a href="manage-banners.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'manage-banners.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
+            <i data-lucide="images" class="w-5 h-5"></i>
+            <span>Manage Banners</span>
+        </a>
+
+        <a href="add-banner.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'add-banner.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
+            <i data-lucide="image-plus" class="w-5 h-5"></i>
+            <span>Add Banner</span>
         </a>
     </nav>
 
     <!-- Logout -->
     <div class="p-4 border-t border-white/10">
-        <a href="../login.php" class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-300 hover:bg-red-500/10 hover:text-red-400 transition-all font-bold italic">
+        <a href="../auth/logout.php" class="flex items-center gap-3 px-4 py-3 rounded-xl text-red-300 hover:bg-red-500/10 hover:text-red-400 transition-all font-bold italic">
             <i data-lucide="log-out" class="w-5 h-5"></i>
-            <span>Exit Admin</span>
+            <span>Log Out Admin</span>
         </a>
     </div>
 </aside>

@@ -1,5 +1,25 @@
-<?php include 'includes/header.php'; ?>
-<?php include 'includes/sidebar.php'; ?>
+<?php 
+require_once 'includes/auth_check.php';
+require_login();
+require_once 'config/database.php';
+
+$db = getDBConnection();
+$user_id = $_SESSION['user_id'];
+
+// Fetch student's registrations
+$stmt = $db->prepare("
+    SELECT r.*, c.course_title 
+    FROM registrations r 
+    JOIN courses c ON r.course_id = c.id 
+    WHERE r.user_id = ? 
+    ORDER BY r.created_at DESC
+");
+$stmt->execute([$user_id]);
+$registrations = $stmt->fetchAll();
+
+include 'includes/header.php'; 
+include 'includes/sidebar.php'; 
+?>
 
 <div class="max-w-7xl mx-auto">
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
@@ -7,141 +27,96 @@
             <h1 class="text-3xl font-bold text-navy">My Registrations</h1>
             <p class="text-gray-500">Track the status of your course applications and payments.</p>
         </div>
-        <div class="flex gap-3">
-            <button class="bg-white border border-gray-200 px-4 py-2 rounded-xl text-sm font-semibold flex items-center gap-2 hover:bg-gray-50 transition-colors">
-                <i data-lucide="filter" class="w-4 h-4"></i>
-                Filter
-            </button>
-            <button class="bg-white border border-gray-200 px-4 py-2 rounded-xl text-sm font-semibold flex items-center gap-2 hover:bg-gray-50 transition-colors">
-                <i data-lucide="download" class="w-4 h-4"></i>
-                Export
-            </button>
-        </div>
     </div>
 
-    <!-- Registration Table Container -->
-    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 overflow-hidden">
-        <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-gray-50/50 border-b border-gray-100">
-                        <th class="px-6 py-4 text-xs font-bold text-navy uppercase tracking-widest">Class Name</th>
-                        <th class="px-6 py-4 text-xs font-bold text-navy uppercase tracking-widest">Date Applied</th>
-                        <th class="px-6 py-4 text-xs font-bold text-navy uppercase tracking-widest">Payment Receipt</th>
-                        <th class="px-6 py-4 text-xs font-bold text-navy uppercase tracking-widest">Status</th>
-                        <th class="px-6 py-4 text-xs font-bold text-navy uppercase tracking-widest">Actions</th>
-                    </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-100">
-                    <!-- Row 1 -->
-                    <tr class="hover:bg-gray-50/50 transition-colors group">
-                        <td class="px-6 py-5">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-navy">
-                                    <i data-lucide="code" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <span class="block font-bold text-navy">Advanced PHP Mastery</span>
-                                    <span class="text-xs text-gray-500">ID: #REG-9912</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-5 text-sm text-gray-600 font-medium italic">Feb 15, 2026</td>
-                        <td class="px-6 py-5">
-                            <button class="text-navy bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 hover:bg-navy hover:text-white transition-all">
-                                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                                View Receipt
-                            </button>
-                        </td>
-                        <td class="px-6 py-5">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-green-50 text-green-600 border border-green-100">
-                                <span class="w-2 h-2 rounded-full bg-green-500"></span>
-                                Approved
-                            </span>
-                        </td>
-                        <td class="px-6 py-5">
-                            <button class="p-2 text-gray-400 hover:text-navy hover:bg-white rounded-lg transition-all">
-                                <i data-lucide="more-horizontal" class="w-5 h-5"></i>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <!-- Row 2 -->
-                    <tr class="hover:bg-gray-50/50 transition-colors group">
-                        <td class="px-6 py-5">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-navy">
-                                    <i data-lucide="palette" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <span class="block font-bold text-navy">UI/UX Design Bundle</span>
-                                    <span class="text-xs text-gray-500">ID: #REG-9945</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-5 text-sm text-gray-600 font-medium italic">Feb 16, 2026</td>
-                        <td class="px-6 py-5">
-                            <button class="text-navy bg-blue-50 px-3 py-1.5 rounded-lg text-xs font-bold flex items-center gap-2 hover:bg-navy hover:text-white transition-all">
-                                <i data-lucide="eye" class="w-3.5 h-3.5"></i>
-                                View Receipt
-                            </button>
-                        </td>
-                        <td class="px-6 py-5">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-amber-50 text-amber-600 border border-amber-100">
-                                <span class="w-2 h-2 rounded-full bg-amber-500 animate-pulse"></span>
-                                Pending
-                            </span>
-                        </td>
-                        <td class="px-6 py-5">
-                            <button class="p-2 text-gray-400 hover:text-navy hover:bg-white rounded-lg transition-all">
-                                <i data-lucide="more-horizontal" class="w-5 h-5"></i>
-                            </button>
-                        </td>
-                    </tr>
-
-                    <!-- Row 3 -->
-                    <tr class="hover:bg-gray-50/50 transition-colors group">
-                        <td class="px-6 py-5">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-10 rounded-lg bg-blue-50 flex items-center justify-center text-navy">
-                                    <i data-lucide="database" class="w-5 h-5"></i>
-                                </div>
-                                <div>
-                                    <span class="block font-bold text-navy">SQL for Beginners</span>
-                                    <span class="text-xs text-gray-500">ID: #REG-9812</span>
-                                </div>
-                            </div>
-                        </td>
-                        <td class="px-6 py-5 text-sm text-gray-600 font-medium italic">Feb 10, 2026</td>
-                        <td class="px-6 py-5 text-xs text-gray-400 font-medium">No Receipt</td>
-                        <td class="px-6 py-5">
-                            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-50 text-red-600 border border-red-100">
-                                <span class="w-2 h-2 rounded-full bg-red-500"></span>
-                                Rejected
-                            </span>
-                        </td>
-                        <td class="px-6 py-5">
-                            <button class="p-2 text-gray-400 hover:text-navy hover:bg-white rounded-lg transition-all">
-                                <i data-lucide="more-horizontal" class="w-5 h-5"></i>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <!-- Pagination -->
-        <div class="px-6 py-4 bg-gray-50/30 border-t border-gray-100 flex items-center justify-between">
-            <span class="text-xs font-medium text-gray-500 italic">Showing 3 of 12 registrations</span>
-            <div class="flex gap-2">
-                <button class="p-2 rounded-lg border border-gray-200 text-gray-400 hover:bg-white disabled:opacity-50" disabled>
-                    <i data-lucide="chevron-left" class="w-4 h-4"></i>
-                </button>
-                <button class="p-2 rounded-lg border border-gray-200 text-navy hover:bg-white active:bg-gray-50">
-                    <i data-lucide="chevron-right" class="w-4 h-4"></i>
-                </button>
+    <?php if (isset($_GET['success'])): ?>
+        <div class="mb-8 p-6 bg-green-50 border-l-4 border-green-500 rounded-2xl flex items-center gap-4 shadow-sm animate-bounce-subtle">
+            <div class="bg-green-500 text-white p-2 rounded-xl">
+                <i data-lucide="check-circle" class="w-6 h-6"></i>
+            </div>
+            <div>
+                <p class="text-green-800 font-black italic uppercase tracking-widest text-sm">Registration Submitted!</p>
+                <p class="text-green-700 text-xs font-bold italic">Your request is currently being reviewed by our academic board. You will receive access once approved.</p>
             </div>
         </div>
+    <?php endif; ?>
+
+    <!-- Registrations Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        <?php if (empty($registrations)): ?>
+            <div class="col-span-full py-20 text-center bg-white rounded-[3rem] border-2 border-dashed border-gray-100 italic">
+                <i data-lucide="inbox" class="w-16 h-16 text-gray-200 mx-auto mb-4"></i>
+                <h3 class="text-xl font-bold text-gray-400 font-bold uppercase italic">No Registrations Found</h3>
+                <p class="text-gray-400 mt-2">You haven't registered for any courses yet.</p>
+                <a href="courses.php" class="mt-6 inline-block bg-navy text-white px-8 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest italic shadow-xl shadow-navy/20 active:scale-95 transition-all">Browse Catalog</a>
+            </div>
+        <?php else: foreach ($registrations as $reg): 
+            $status_classes = [
+                'pending' => 'bg-amber-50 text-amber-600 border-amber-100',
+                'approved' => 'bg-green-50 text-green-600 border-green-100',
+                'rejected' => 'bg-red-50 text-red-600 border-red-100'
+            ];
+            $status_dot = [
+                'pending' => 'bg-amber-500',
+                'approved' => 'bg-green-500',
+                'rejected' => 'bg-red-500'
+            ];
+        ?>
+            <!-- Registration Card -->
+            <div class="bg-white rounded-[2.5rem] border border-gray-100 shadow-sm hover:shadow-2xl transition-all duration-500 group overflow-hidden flex flex-col h-full relative">
+                <!-- Status Badge (Floating) -->
+                <div class="absolute top-4 right-4 z-10">
+                    <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[10px] font-black uppercase italic border bg-white/90 backdrop-blur-sm <?php echo $status_classes[$reg['status']]; ?>">
+                        <span class="w-1.5 h-1.5 rounded-full <?php echo $status_dot[$reg['status']]; ?> <?php echo ($reg['status'] === 'pending') ? 'animate-pulse' : ''; ?>"></span>
+                        <?php echo $reg['status']; ?>
+                    </span>
+                </div>
+
+                <!-- Card Content -->
+                <div class="p-8 flex flex-col h-full">
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-14 h-14 rounded-2xl bg-navy/5 text-navy flex items-center justify-center shrink-0 border border-navy/5">
+                            <i data-lucide="book" class="w-7 h-7"></i>
+                        </div>
+                        <div>
+                            <p class="text-[10px] text-gray-400 font-black uppercase tracking-[0.2em] mb-1">Registration</p>
+                            <h3 class="text-xl font-black text-navy italic leading-tight line-clamp-1"><?php echo htmlspecialchars($reg['course_title']); ?></h3>
+                        </div>
+                    </div>
+
+                    <div class="space-y-4 mb-8">
+                        <div class="flex items-center justify-between text-xs py-2 border-b border-gray-50 italic">
+                            <span class="text-gray-400 font-bold uppercase tracking-widest text-[9px]">Roll Number</span>
+                            <span class="text-navy font-black">REG-<?php echo str_pad($reg['id'], 5, '0', STR_PAD_LEFT); ?></span>
+                        </div>
+                        <div class="flex items-center justify-between text-xs py-2 border-b border-gray-50 italic">
+                            <span class="text-gray-400 font-bold uppercase tracking-widest text-[9px]">Applied Date</span>
+                            <span class="text-navy font-bold"><?php echo date('M d, Y', strtotime($reg['created_at'])); ?></span>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-2 mt-auto mb-4">
+                        <a href="<?php echo htmlspecialchars($reg['payment_receipt']); ?>" target="_blank" class="flex-1 flex items-center justify-center gap-2 bg-gray-50 text-gray-500 py-3 rounded-2xl text-[10px] font-black uppercase italic border border-gray-100 hover:bg-navy hover:text-white hover:border-navy transition-all">
+                            <i data-lucide="image" class="w-3.5 h-3.5"></i>
+                            View Receipt
+                        </a>
+                    </div>
+
+                    <?php if ($reg['status'] === 'approved'): ?>
+                        <a href="downloads.php" class="w-full flex items-center justify-center gap-3 bg-green-500 text-white py-4 rounded-3xl font-black uppercase italic text-xs shadow-xl shadow-green-500/20 hover:bg-green-600 transition-all active:scale-95 group/btn">
+                            Access Materials
+                            <i data-lucide="play" class="w-4 h-4 group-hover/btn:translate-x-1 transition-transform"></i>
+                        </a>
+                    <?php else: ?>
+                        <div class="w-full py-4 rounded-3xl text-center bg-gray-100 text-gray-400 font-black uppercase italic text-[9px] tracking-widest border border-gray-100">
+                            Awaiting Full Access
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        <?php endforeach; endif; ?>
     </div>
+</div>
 </div>
 
 <?php include 'includes/footer.php'; ?>

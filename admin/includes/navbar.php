@@ -1,8 +1,8 @@
 <?php
 $title_map = [
     'dashboard.php' => 'Dashboard Overview',
-    'manage-classes.php' => 'Manage Course Catalog',
-    'add-class.php' => 'Create New Course',
+    'manage-courses.php' => 'Manage Course Catalog',
+    'add-course.php' => 'Create New Course',
     'registrations.php' => 'Student Enrollment Requests',
     'students.php' => 'Student Directory',
     'reports.php' => 'Analytics & Reports'
@@ -26,28 +26,32 @@ $page_title = $title_map[basename($_SERVER['PHP_SELF'])] ?? 'Admin Panel';
             </button>
             
             <div class="hidden sm:block text-right mr-2">
-                <p class="text-sm font-black text-navy leading-none mb-1 uppercase italic tracking-tighter">Super Admin</p>
-                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest">Global Master</p>
+                <p class="text-sm font-black text-navy leading-none mb-1 uppercase italic tracking-tighter"><?php echo htmlspecialchars($_SESSION['name'] ?? 'Admin User'); ?></p>
+                <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest"><?php echo ucfirst($_SESSION['role'] ?? 'staff'); ?> Account</p>
             </div>
 
             <div class="relative group">
-                <button class="w-10 h-10 rounded-xl bg-navy border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-sm ring-1 ring-gray-100 overflow-hidden">
-                    <img src="https://ui-avatars.com/api/?name=Admin&background=0B3C5D&color=FFFFFF" alt="Admin">
+                <button class="w-10 h-10 rounded-xl bg-navy border-2 border-white shadow-md flex items-center justify-center text-white font-bold text-sm ring-1 ring-gray-100 overflow-hidden group-hover:scale-110 transition-transform">
+                    <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($_SESSION['name'] ?? 'A'); ?>&background=0B3C5D&color=FFFFFF" alt="Admin">
                 </button>
                 <!-- Dropdown -->
-                <div class="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-2xl border border-gray-100 py-2 hidden group-hover:block transition-all transform origin-top-right">
-                    <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-navy transition-colors font-bold italic">
+                <div class="absolute right-0 mt-2 w-56 bg-white rounded-2xl shadow-2xl border border-gray-100 py-3 hidden group-hover:block transition-all transform origin-top-right">
+                    <div class="px-4 py-2 border-b border-gray-50 mb-2">
+                        <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Administrator</p>
+                        <p class="text-xs font-bold text-navy italic">@<?php echo htmlspecialchars($_SESSION['username'] ?? 'admin'); ?></p>
+                    </div>
+                    <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-navy/5 hover:text-navy transition-colors font-bold italic">
                         <i data-lucide="user" class="w-4 h-4"></i>
                         Admin Profile
                     </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-2 text-sm text-gray-600 hover:bg-gray-50 hover:text-navy transition-colors font-bold italic">
+                    <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-navy/5 hover:text-navy transition-colors font-bold italic">
                         <i data-lucide="settings" class="w-4 h-4"></i>
                         Global Settings
                     </a>
                     <hr class="my-2 border-gray-50">
-                    <a href="../logout.php" class="flex items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors font-bold italic">
+                    <a href="/Learning-Mangment/auth/logout.php" class="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors font-bold italic">
                         <i data-lucide="log-out" class="w-4 h-4"></i>
-                        Logout
+                        Logout Session
                     </a>
                 </div>
             </div>
