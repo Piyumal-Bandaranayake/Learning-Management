@@ -77,8 +77,7 @@ if (isset($_SESSION['user_id']) && $_SESSION['role'] === 'student') {
                     </div>
                     <div class="p-8 flex-1 flex flex-col">
                         <div class="flex justify-between items-start mb-4">
-                            <span class="bg-blue-50 text-navy text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest border border-blue-100">COURSE #<?php echo str_pad($course['id'], 3, '0', STR_PAD_LEFT); ?></span>
-                            <span class="text-2xl font-black text-navy">$<?php echo number_format($course['price'], 2); ?></span>
+                            <span class="text-2xl font-black text-navy">Rs. <?php echo number_format($course['price'], 2); ?></span>
                         </div>
                         <h3 class="text-2xl font-extrabold text-navy mb-3 line-clamp-1 italic"><?php echo htmlspecialchars($course['course_title']); ?></h3>
                         <p class="text-gray-400 text-sm mb-6 line-clamp-2 italic leading-relaxed"><?php echo htmlspecialchars($course['description']); ?></p>
