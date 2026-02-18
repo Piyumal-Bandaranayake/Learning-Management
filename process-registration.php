@@ -15,6 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         die("Missing required information.");
     }
 
+    if (!isset($_POST['terms'])) {
+        die("You must agree to the Terms & Conditions to register.");
+    }
+
     // Check if Course exists
     $stmt = $db->prepare("SELECT id FROM courses WHERE id = ?");
     $stmt->execute([$course_id]);
