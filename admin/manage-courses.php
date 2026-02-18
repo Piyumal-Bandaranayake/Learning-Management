@@ -83,7 +83,7 @@ include 'includes/navbar.php';
                             </td>
                             <td class="px-8 py-6 text-sm font-bold text-gray-600"><?php echo htmlspecialchars($course['instructor']); ?></td>
                             <td class="px-8 py-6 text-sm font-bold text-gray-600"><?php echo htmlspecialchars($course['duration']); ?></td>
-                            <td class="px-8 py-6 font-black text-navy italic">$<?php echo number_format($course['price'], 2); ?></td>
+                            <td class="px-8 py-6 font-black text-navy italic">Rs. <?php echo number_format($course['price'], 2); ?></td>
                             <td class="px-8 py-6">
                                 <div class="flex items-center gap-2">
                                     <a href="edit-course.php?id=<?php echo $course['id']; ?>" class="p-2 text-blue-500 hover:bg-blue-50 rounded-lg transition-colors" title="Edit">
