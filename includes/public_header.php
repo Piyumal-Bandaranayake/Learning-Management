@@ -172,6 +172,7 @@
                     <a href="about.php" class="nav-link text-white font-semibold">About</a>
                     <a href="courses.php" class="nav-link text-white font-semibold">Courses</a>
                     <a href="public-timetable.php" class="nav-link text-white font-semibold">Timetable</a>
+                    <a href="about.php#contact" class="nav-link text-white font-semibold">Contact Us</a>
                     <div class="h-6 w-px bg-white/10 mx-2"></div>
                     
                     <?php if (isset($_SESSION['user_id'])): ?>
@@ -190,7 +191,7 @@
                                     <p class="text-sm font-black text-navy italic"><?php echo htmlspecialchars($_SESSION['name']); ?></p>
                                 </div>
                                 
-                                <a href="<?php echo ($_SESSION['role'] === 'admin') ? 'admin/dashboard.php' : 'student/dashboard.php'; ?>" class="flex items-center gap-4 px-6 py-3 text-sm text-gray-600 hover:bg-navy/5 hover:text-navy transition-colors font-bold italic">
+                                <a href="<?php echo ($_SESSION['role'] === 'admin') ? 'admin/dashboard.php' : 'dashboard.php'; ?>" class="flex items-center gap-4 px-6 py-3 text-sm text-gray-600 hover:bg-navy/5 hover:text-navy transition-colors font-bold italic">
                                     <div class="bg-navy/5 p-2 rounded-xl group-hover:bg-navy/10 transition-colors">
                                         <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
                                     </div>
@@ -235,9 +236,10 @@
                 <a href="about.php" class="block px-4 py-3 text-navy font-bold hover:bg-gray-50 rounded-xl">About</a>
                 <a href="courses.php" class="block px-4 py-3 text-navy font-bold hover:bg-gray-50 rounded-xl">Courses</a>
                 <a href="public-timetable.php" class="block px-4 py-3 text-navy font-bold hover:bg-gray-50 rounded-xl">Timetable</a>
+                <a href="about.php#contact" class="block px-4 py-3 text-navy font-bold hover:bg-gray-50 rounded-xl">Contact Us</a>
                 <hr class="my-4 border-gray-100">
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <a href="<?php echo ($_SESSION['role'] === 'admin') ? 'admin/dashboard.php' : 'student/dashboard.php'; ?>" class="block px-4 py-3 text-navy font-bold bg-navy/5 rounded-xl">Go to Dashboard</a>
+                    <a href="<?php echo ($_SESSION['role'] === 'admin') ? 'admin/dashboard.php' : 'dashboard.php'; ?>" class="block px-4 py-3 text-navy font-bold bg-navy/5 rounded-xl">Go to Dashboard</a>
                     <a href="/Learning-Mangment/auth/logout.php" class="block px-4 py-3 text-red-600 font-bold">Logout</a>
                 <?php else: ?>
                     <a href="login.php" class="block px-4 py-3 text-navy font-bold">Login</a>
