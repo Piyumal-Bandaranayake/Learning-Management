@@ -43,7 +43,7 @@ include 'includes/public_header.php';
                 <div>
                     <div class="flex justify-between items-center mb-2">
                         <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic ml-1">Password</label>
-                        <a href="#" class="text-[10px] font-black text-navy hover:underline uppercase italic">Forgot?</a>
+                        <a href="forgot-password.php" class="text-[10px] font-black text-navy hover:underline uppercase italic">Forgot?</a>
                     </div>
                     <div class="relative">
                         <i data-lucide="lock" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5"></i>

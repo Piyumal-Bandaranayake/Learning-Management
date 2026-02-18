@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             if ($_SESSION['role'] === 'admin') {
                 header("Location: ../admin/dashboard.php");
             } else {
-                header("Location: ../student/dashboard.php");
+                header("Location: ../dashboard.php");
             }
             exit;
         } else {

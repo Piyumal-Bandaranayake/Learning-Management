@@ -20,6 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $errors[] = "All fields are required.";
     }
 
+    if (empty($_POST['terms'])) {
+        $errors[] = "You must agree to the Terms and Conditions.";
+    }
+
     if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
         $errors[] = "Invalid email format.";
     }
@@ -38,10 +42,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Check uniqueness (Email and Username)
     if (empty($errors)) {
-        $stmt = $db->prepare("SELECT id FROM users WHERE email = ? OR username = ?");
-        $stmt->execute([$email, $username]);
+        // Check Email
+        $stmt = $db->prepare("SELECT id FROM users WHERE email = ?");
+        $stmt->execute([$email]);
         if ($stmt->fetch()) {
-            $errors[] = "Email or Username already exists.";
+            $errors[] = "The email address '$email' is already registered. Please use a different email.";
+        }
+
+        // Check Username
+        $stmt = $db->prepare("SELECT id FROM users WHERE username = ?");
+        $stmt->execute([$username]);
+        if ($stmt->fetch()) {
+            $errors[] = "The username '$username' is already taken. Please choose another one.";
         }
     }
 
