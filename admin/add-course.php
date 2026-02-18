@@ -143,8 +143,8 @@ include 'includes/navbar.php';
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Price (USD)</label>
-                        <input type="number" step="0.01" name="price" placeholder="e.g. 99.99" required
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Price (LKR)</label>
+                        <input type="number" step="0.01" name="price" placeholder="e.g. 15000" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
                 </div>
@@ -187,8 +187,13 @@ include 'includes/navbar.php';
                 </div>
 
                 <script>
-                    // Image Preview Logic
+                    const form = document.querySelector('form');
+                    const courseTitle = document.querySelector('input[name="course_title"]');
+                    const priceInput = document.querySelector('input[name="price"]');
                     const imageInput = document.getElementById('course_image');
+                    const zipInput = document.getElementById('course_video');
+
+                    // Image Preview Logic with Validation
                     const imagePreview = document.getElementById('image-preview');
                     const imagePlaceholder = document.getElementById('image-placeholder');
                     const imageContainer = document.getElementById('image-preview-container');
@@ -197,6 +202,19 @@ include 'includes/navbar.php';
                     imageInput.addEventListener('change', function(e) {
                         const file = e.target.files[0];
                         if (file) {
+                            // Validate Image Type and Size (5MB)
+                            const validTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/jpg'];
+                            if (!validTypes.includes(file.type)) {
+                                alert('Invalid file type. Only JPG, PNG, and WebP are allowed.');
+                                this.value = '';
+                                return;
+                            }
+                            if (file.size > 5 * 1024 * 1024) {
+                                alert('Image size exceeds 5MB limit.');
+                                this.value = '';
+                                return;
+                            }
+
                             const reader = new FileReader();
                             reader.onload = function(e) {
                                 imagePreview.src = e.target.result;
@@ -220,8 +238,7 @@ include 'includes/navbar.php';
                         removeImageBtn.classList.add('hidden');
                     });
 
-                    // ZIP Preview Logic
-                    const zipInput = document.getElementById('course_video');
+                    // ZIP Preview Logic with Validation
                     const zipInfo = document.getElementById('zip-info');
                     const zipPlaceholder = document.getElementById('zip-placeholder');
                     const filenameDisplay = document.getElementById('zip-filename');
@@ -232,6 +249,19 @@ include 'includes/navbar.php';
                     zipInput.addEventListener('change', function(e) {
                         const file = e.target.files[0];
                         if (file) {
+                             // Validate ZIP Type and Size (10GB)
+                             // Note: MIME type for zip can vary, usually application/zip or application/x-zip-compressed
+                            if (file.name.split('.').pop().toLowerCase() !== 'zip') {
+                                alert('Invalid file type. Only .zip files are allowed.');
+                                this.value = '';
+                                return;
+                            }
+                            if (file.size > 10 * 1024 * 1024 * 1024) {
+                                alert('File size exceeds 10GB limit.');
+                                this.value = '';
+                                return;
+                            }
+
                             filenameDisplay.textContent = file.name;
                             filesizeDisplay.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
                             zipInfo.classList.remove('hidden');
@@ -251,10 +281,33 @@ include 'includes/navbar.php';
                         zipContainer.classList.add('border-dashed');
                         removeZipBtn.classList.add('hidden');
                     });
+
+                    // Form Submission Validation
+                    form.addEventListener('submit', function(e) {
+                        let isValid = true;
+                        
+                        // Price Validation
+                        if (parseFloat(priceInput.value) < 0) {
+                            alert('Price cannot be negative.');
+                            priceInput.focus();
+                            isValid = false;
+                        }
+
+                        // Basic Empty Check (HTML5 handles this, but good as backup)
+                        if (!courseTitle.value.trim()) {
+                            alert('Course title is required.');
+                            courseTitle.focus();
+                            isValid = false;
+                        }
+
+                        if (!isValid) {
+                            e.preventDefault();
+                        }
+                    });
                 </script>
 
                 <div class="flex items-center justify-end gap-4 pt-4">
-                    <button type="reset" class="px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest text-navy bg-gray-100 hover:bg-gray-200 transition-all text-xs">Reset Form</button>
+
                     <button type="submit" class="px-10 py-4 rounded-2xl font-black uppercase italic tracking-widest text-white bg-navy hover:bg-navy-light transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs">Publish Course</button>
                 </div>
             </form>

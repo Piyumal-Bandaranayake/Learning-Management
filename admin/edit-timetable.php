@@ -1,11 +1,13 @@
 <?php
 require_once '../includes/auth_check.php';
-require_admin();
 require_once '../config/database.php';
 
 $db = getDBConnection();
 $errors = [];
 $success = "";
+
+// Days of the week
+$days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
 $id = $_GET['id'] ?? null;
 if (!$id) {
@@ -16,7 +18,7 @@ if (!$id) {
 // Fetch current data
 $stmt = $db->prepare("SELECT * FROM timetable WHERE id = ?");
 $stmt->execute([$id]);
-$entry = $stmt->fetch();
+$entry = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$entry) {
     header("Location: manage-timetable.php");
@@ -24,43 +26,69 @@ if (!$entry) {
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $class_name = trim($_POST['class_name'] ?? '');
-    $class_time = trim($_POST['class_time'] ?? '');
+    $class_title = trim($_POST['class_title'] ?? '');
+    $short_description = trim($_POST['short_description'] ?? '');
+    $full_description = trim($_POST['full_description'] ?? '');
+    $instructor = trim($_POST['instructor'] ?? '');
+    $location = trim($_POST['location'] ?? '');
     $day_name = trim($_POST['day_name'] ?? '');
-    $class_description = trim($_POST['class_description'] ?? '');
+    $class_time = trim($_POST['class_time'] ?? '');
+    $duration = trim($_POST['duration'] ?? '');
 
-    if (empty($class_name) || empty($class_time) || empty($day_name)) {
-        $errors[] = "All fields except description are required.";
+    // Image Upload Logic
+    $class_image = $entry['class_image']; // Default to existing image
+    
+    if (isset($_FILES['class_image']) && $_FILES['class_image']['error'] === 0) {
+        $allowed = ['jpg', 'jpeg', 'png', 'webp'];
+        $filename = $_FILES['class_image']['name'];
+        $filetype = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+        $filesize = $_FILES['class_image']['size'];
+
+        if (!in_array($filetype, $allowed)) {
+            $errors[] = "Error: Please select a valid file format (JPG, JPEG, PNG, WEBP).";
+        } elseif ($filesize > 5 * 1024 * 1024) {
+             $errors[] = "Error: File size is larger than the allowed limit (5MB).";
+        } else {
+             $new_filename = uniqid() . "." . $filetype;
+             $upload_path = "../uploads/timetable/" . $new_filename;
+             
+             if (!is_dir('../uploads/timetable')) {
+                 mkdir('../uploads/timetable', 0777, true);
+             }
+
+             if (move_uploaded_file($_FILES['class_image']['tmp_name'], $upload_path)) {
+                 // Delete old image if it exists
+                 if (!empty($entry['class_image']) && file_exists("../" . $entry['class_image'])) {
+                     unlink("../" . $entry['class_image']);
+                 }
+                 $class_image = "uploads/timetable/" . $new_filename;
+             } else {
+                 $errors[] = "Error: Failed to upload image.";
+             }
+        }
     }
 
-    $image_path = $entry['class_image'];
 
-    // Update Image if provided
-    if (isset($_FILES['class_image']) && $_FILES['class_image']['error'] === 0) {
-        $allowed_img = ['jpg', 'jpeg', 'png', 'webp'];
-        $img_ext = strtolower(pathinfo($_FILES['class_image']['name'], PATHINFO_EXTENSION));
-        
-        if (in_array($img_ext, $allowed_img) && $_FILES['class_image']['size'] <= 5 * 1024 * 1024) {
-            if (file_exists("../" . $entry['class_image'])) unlink("../" . $entry['class_image']);
-            $new_name = uniqid('class_', true) . '.' . $img_ext;
-            $image_path = "uploads/timetable/" . $new_name;
-            move_uploaded_file($_FILES['class_image']['tmp_name'], "../" . $image_path);
-        } else {
-            $errors[] = "Invalid image or size too large.";
-        }
+    // Validation
+    if (empty($class_title) || empty($short_description) || empty($full_description) || empty($instructor) || empty($location) || empty($day_name) || empty($class_time) || empty($duration)) {
+        $errors[] = "All fields are required.";
+    }
+
+    if (!in_array($day_name, $days)) {
+        $errors[] = "Invalid day selected.";
     }
 
     if (empty($errors)) {
         try {
-            $stmt = $db->prepare("UPDATE timetable SET class_name = ?, class_time = ?, class_description = ?, day_name = ?, class_image = ? WHERE id = ?");
-            $stmt->execute([$class_name, $class_time, $class_description, $day_name, $image_path, $id]);
+            $stmt = $db->prepare("UPDATE timetable SET class_title = ?, short_description = ?, full_description = ?, instructor = ?, location = ?, day_name = ?, class_time = ?, duration = ?, class_image = ? WHERE id = ?");
+            $stmt->execute([$class_title, $short_description, $full_description, $instructor, $location, $day_name, $class_time, $duration, $class_image, $id]);
             $success = "Timetable entry updated successfully!";
-            // Update local object
-            $entry['class_name'] = $class_name;
-            $entry['class_time'] = $class_time;
-            $entry['class_description'] = $class_description;
-            $entry['day_name'] = $day_name;
-            $entry['class_image'] = $image_path;
+            
+            // Refresh entry data
+            $stmt = $db->prepare("SELECT * FROM timetable WHERE id = ?");
+            $stmt->execute([$id]);
+            $entry = $stmt->fetch(PDO::FETCH_ASSOC);
+            
         } catch (PDOException $e) {
             $errors[] = "Database error: " . $e->getMessage();
         }
@@ -76,10 +104,10 @@ include 'includes/navbar.php';
     <div class="bg-white rounded-3xl shadow-xl shadow-navy/5 border border-gray-100 overflow-hidden">
         <div class="bg-navy p-8 text-white relative overflow-hidden">
             <div class="relative z-10">
-                <h2 class="text-2xl font-black uppercase italic tracking-widest">Edit Timetable Entry</h2>
-                <p class="text-blue-200 text-xs mt-1 uppercase font-bold tracking-widest">Update scheduled class session</p>
+                <h2 class="text-2xl font-black uppercase italic tracking-widest">Edit Class Session</h2>
+                <p class="text-blue-200 text-xs mt-1 uppercase font-bold tracking-widest">Update physical class details</p>
             </div>
-            <i data-lucide="edit" class="absolute -right-4 -bottom-4 w-32 h-32 text-white/10 rotate-12"></i>
+            <i data-lucide="edit-3" class="absolute -right-4 -bottom-4 w-32 h-32 text-white/10 rotate-12"></i>
         </div>
 
         <div class="p-8">
@@ -87,7 +115,7 @@ include 'includes/navbar.php';
                 <div class="mb-8 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-xl">
                     <ul class="list-disc ml-5 text-sm font-bold italic">
                         <?php foreach ($errors as $error): ?>
-                            <li><?php echo $error; ?></li>
+                            <li><?php echo htmlspecialchars($error); ?></li>
                         <?php endforeach; ?>
                     </ul>
                 </div>
@@ -95,105 +123,97 @@ include 'includes/navbar.php';
 
             <?php if ($success): ?>
                 <div class="mb-8 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-xl flex items-center justify-between">
-                    <p class="text-sm font-bold italic"><?php echo $success; ?></p>
+                    <p class="text-sm font-bold italic"><?php echo htmlspecialchars($success); ?></p>
                     <a href="manage-timetable.php" class="bg-green-600 text-white px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest italic">Return to List</a>
                 </div>
             <?php endif; ?>
 
             <form action="edit-timetable.php?id=<?php echo $id; ?>" method="POST" enctype="multipart/form-data" class="space-y-6">
+                 <!-- Class Title -->
+                 <div>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Class Title</label>
+                    <input type="text" name="class_title" value="<?php echo htmlspecialchars($entry['class_title']); ?>" required
+                           class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
+                </div>
+
+                <!-- Short Description -->
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Short Description</label>
+                    <input type="text" name="short_description" value="<?php echo htmlspecialchars($entry['short_description']); ?>" required
+                           class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
+                </div>
+
+                 <!-- Full Description -->
+                <div>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Full Description</label>
+                    <textarea name="full_description" rows="4" required
+                              class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy resize-none"><?php echo htmlspecialchars($entry['full_description']); ?></textarea>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Instructor -->
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Class Name</label>
-                        <input type="text" name="class_name" value="<?php echo htmlspecialchars($entry['class_name']); ?>" required
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Instructor</label>
+                        <input type="text" name="instructor" value="<?php echo htmlspecialchars($entry['instructor']); ?>" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
+
+                    <!-- Duration -->
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Class Time</label>
-                        <input type="text" name="class_time" value="<?php echo htmlspecialchars($entry['class_time']); ?>" required
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Duration</label>
+                        <input type="text" name="duration" value="<?php echo htmlspecialchars($entry['duration']); ?>" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Class Description</label>
-                    <textarea name="class_description" rows="4" placeholder="Briefly describe what students will learn..."
-                              class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy resize-none"><?php echo htmlspecialchars($entry['class_description'] ?? ''); ?></textarea>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Location -->
+                    <div>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Location</label>
+                        <input type="text" name="location" value="<?php echo htmlspecialchars($entry['location']); ?>" required
+                               class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
+                    </div>
+
+                    <!-- Day of Week -->
+                    <div>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Day</label>
+                        <select name="day_name" required
+                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy appearance-none">
+                            <option value="" disabled>Select Day</option>
+                            <?php foreach ($days as $day): ?>
+                                <option value="<?php echo htmlspecialchars($day); ?>" <?php echo ($entry['day_name'] === $day) ? 'selected' : ''; ?>><?php echo htmlspecialchars($day); ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <!-- Time -->
+                    <div>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Time</label>
+                        <input type="time" name="class_time" value="<?php echo htmlspecialchars($entry['class_time']); ?>" required
+                               class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
+                    </div>
                 </div>
 
+                <!-- Image Upload -->
                 <div>
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Select Day</label>
-                    <select name="day_name" required
-                            class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy appearance-none">
-                        <?php 
-                        $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
-                        foreach ($days as $day):
-                        ?>
-                            <option value="<?php echo $day; ?>" <?php echo ($entry['day_name'] == $day) ? 'selected' : ''; ?>><?php echo $day; ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-                <div class="relative group">
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Replace Image (Optional)</label>
-                    <div id="image-preview-container" class="relative h-48 rounded-3xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center group-hover:border-navy/30 transition-all overflow-hidden">
-                        <button type="button" id="remove-image" class="absolute top-3 right-3 z-30 bg-red-500 text-white p-1.5 rounded-full shadow-lg hover:bg-red-600 transition-all scale-0 group-hover:scale-100 hidden">
-                            <i data-lucide="x" class="w-4 h-4"></i>
-                        </button>
-                        <img id="image-current" src="../<?php echo $entry['class_image']; ?>" class="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none transition-opacity">
-                        <img id="image-preview" src="#" alt="Preview" class="absolute inset-0 w-full h-full object-cover hidden transition-all">
-                        
-                        <div id="image-placeholder" class="relative z-10 flex flex-col items-center">
-                            <i data-lucide="upload" class="w-8 h-8 text-gray-400 mb-2"></i>
-                            <span class="text-[10px] font-black text-gray-500 uppercase tracking-widest italic">New Thumbnail</span>
+                     <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Class Image</label>
+                     <?php if (!empty($entry['class_image'])): ?>
+                        <div class="mb-4 relative w-32 h-32 rounded-xl overflow-hidden border border-gray-200">
+                            <img src="../<?php echo htmlspecialchars($entry['class_image']); ?>" class="w-full h-full object-cover">
                         </div>
-                        <input type="file" name="class_image" id="class_image" accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer z-20">
-                    </div>
+                     <?php endif; ?>
+                     <input type="file" name="class_image" accept="image/*"
+                            class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-black file:uppercase file:bg-navy/10 file:text-navy hover:file:bg-navy/20">
+                     <p class="text-[10px] text-gray-400 mt-1 italic ml-1">Leave empty to keep current image. Recommended size: 800x600px | Max: 5MB</p>
                 </div>
 
                 <div class="flex items-center justify-end gap-4 pt-4">
                     <a href="manage-timetable.php" class="px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest text-navy bg-gray-100 hover:bg-gray-200 transition-all text-xs">Cancel</a>
-                    <button type="submit" class="px-10 py-4 rounded-2xl font-black uppercase italic tracking-widest text-white bg-navy hover:bg-navy-light transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs">Update Entry</button>
+                    <button type="submit" class="px-10 py-4 rounded-2xl font-black uppercase italic tracking-widest text-white bg-navy hover:bg-navy-light transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs">Update Session</button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-
-<script>
-    const imageInput = document.getElementById('class_image');
-    const imagePreview = document.getElementById('image-preview');
-    const imageCurrent = document.getElementById('image-current');
-    const imagePlaceholder = document.getElementById('image-placeholder');
-    const imageContainer = document.getElementById('image-preview-container');
-    const removeImageBtn = document.getElementById('remove-image');
-
-    imageInput.addEventListener('change', function(e) {
-        const file = e.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-                imagePreview.classList.remove('hidden');
-                imageCurrent.classList.add('opacity-0');
-                imagePlaceholder.classList.add('hidden');
-                imageContainer.classList.add('border-navy/20');
-                imageContainer.classList.remove('border-dashed');
-                removeImageBtn.classList.remove('hidden');
-            }
-            reader.readAsDataURL(file);
-        }
-    });
-
-    removeImageBtn.addEventListener('click', function(e) {
-        e.preventDefault();
-        imageInput.value = '';
-        imagePreview.classList.add('hidden');
-        imageCurrent.classList.remove('opacity-0');
-        imagePlaceholder.classList.remove('hidden');
-        imageContainer.classList.remove('border-navy/20');
-        imageContainer.classList.add('border-dashed');
-        removeImageBtn.classList.add('hidden');
-    });
-</script>
 
 <?php include 'includes/footer.php'; ?>

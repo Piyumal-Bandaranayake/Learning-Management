@@ -27,8 +27,9 @@ include 'includes/public_header.php';
             <!-- Left Content -->
             <div class="lg:col-span-6 text-center lg:text-left order-2 lg:order-1">
                 <div class="max-w-xl mx-auto lg:mx-0">
-                    <span class="inline-block bg-white/10 text-blue-300 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-[0.2em] mb-6 border border-white/10 backdrop-blur-md">
-                        Welcome to LMS Core
+                    <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-blue-200 text-[10px] font-black uppercase tracking-[0.2em] italic mb-6 backdrop-blur-sm">
+                        <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                        Welcome to Guideway Learning Network
                     </span>
                     <h1 class="text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-[1.1] mb-6 italic uppercase tracking-tighter">
                         Upgrade Your <br>
@@ -184,7 +185,7 @@ include 'includes/public_header.php';
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                              alt="<?php echo htmlspecialchars($course['course_title']); ?>">
                         <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full shadow-lg">
-                            <span class="text-[10px] font-black uppercase text-navy tracking-widest italic">$<?php echo number_format($course['price'], 2); ?></span>
+                            <span class="text-[10px] font-black uppercase text-navy tracking-widest italic">Rs. <?php echo number_format($course['price'], 2); ?></span>
                         </div>
                     </div>
                     <div class="p-8">

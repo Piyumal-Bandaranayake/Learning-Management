@@ -145,7 +145,7 @@ include 'includes/navbar.php';
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Price (USD)</label>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Price (LKR)</label>
                         <input type="number" step="0.01" name="price" value="<?php echo htmlspecialchars($course['price']); ?>" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
