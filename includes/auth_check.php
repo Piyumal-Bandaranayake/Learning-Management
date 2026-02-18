@@ -31,7 +31,7 @@ function require_login() {
 function require_admin() {
     require_login();
     if (!is_admin()) {
-        header("Location: /Learning-Mangment/student/dashboard.php");
+        header("Location: /Learning-Mangment/dashboard.php");
         exit;
     }
 }

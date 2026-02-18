@@ -76,6 +76,41 @@ include 'includes/sidebar.php';
                 </div>
             </div>
 
+            <!-- Bank Details Section -->
+            <div class="mb-10 p-8 bg-navy/5 rounded-[2rem] border border-navy/10 relative overflow-hidden">
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-10 h-10 bg-navy text-white rounded-xl flex items-center justify-center shadow-lg shadow-navy/20">
+                        <i data-lucide="landmark" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-black uppercase tracking-widest text-navy italic">Bank Transfer Details</h3>
+                        <p class="text-[10px] text-blue-400 font-bold uppercase tracking-widest">Complete your payment to the account below</p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 relative z-10">
+                    <div class="space-y-1">
+                        <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic ml-1">Bank Name</span>
+                        <div class="bg-white/80 backdrop-blur-sm px-4 py-3 rounded-xl border border-white font-black text-navy text-xs italic">Commercial Bank</div>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic ml-1">Account Holder</span>
+                        <div class="bg-white/80 backdrop-blur-sm px-4 py-3 rounded-xl border border-white font-black text-navy text-xs italic">Guideway Learning Network</div>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic ml-1">Account Number</span>
+                        <div class="bg-white/80 backdrop-blur-sm px-4 py-3 rounded-xl border border-white font-black text-blue-600 text-sm tracking-widest italic">8002 1234 5678 9012</div>
+                    </div>
+                    <div class="space-y-1">
+                        <span class="text-[9px] font-black text-gray-400 uppercase tracking-widest italic ml-1">Branch</span>
+                        <div class="bg-white/80 backdrop-blur-sm px-4 py-3 rounded-xl border border-white font-black text-navy text-xs italic">Colombo Main Branch</div>
+                    </div>
+                </div>
+
+                <!-- Abstract background decoration -->
+                <i data-lucide="shield-check" class="absolute -right-6 -bottom-6 w-32 h-32 text-navy/5 -rotate-12"></i>
+            </div>
+
             <!-- Payment Proof Section -->
             <div class="p-6 bg-blue-50/50 rounded-2xl border-2 border-dashed border-blue-200 mb-8">
                 <div class="flex items-start gap-4">
@@ -179,7 +214,7 @@ include 'includes/sidebar.php';
             <!-- Terms & Submit -->
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-6">
                 <label class="flex items-center gap-3 cursor-pointer">
-                    <input type="checkbox" required class="w-5 h-5 rounded text-navy focus:ring-navy cursor-pointer">
+                    <input type="checkbox" name="terms" value="1" required class="w-5 h-5 rounded text-navy focus:ring-navy cursor-pointer">
                     <span class="text-sm text-gray-500">I agree to the <a href="#" class="text-navy font-bold underline">Terms & Conditions</a></span>
                 </label>
                 

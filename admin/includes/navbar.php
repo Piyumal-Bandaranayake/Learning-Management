@@ -5,7 +5,8 @@ $title_map = [
     'add-course.php' => 'Create New Course',
     'registrations.php' => 'Student Enrollment Requests',
     'students.php' => 'Student Directory',
-    'reports.php' => 'Analytics & Reports'
+    'reports.php' => 'Analytics & Reports',
+    'change-password.php' => 'Security Settings'
 ];
 $page_title = $title_map[basename($_SERVER['PHP_SELF'])] ?? 'Admin Panel';
 ?>
@@ -40,13 +41,10 @@ $page_title = $title_map[basename($_SERVER['PHP_SELF'])] ?? 'Admin Panel';
                         <p class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Administrator</p>
                         <p class="text-xs font-bold text-navy italic">@<?php echo htmlspecialchars($_SESSION['username'] ?? 'admin'); ?></p>
                     </div>
-                    <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-navy/5 hover:text-navy transition-colors font-bold italic">
-                        <i data-lucide="user" class="w-4 h-4"></i>
-                        Admin Profile
-                    </a>
-                    <a href="#" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-navy/5 hover:text-navy transition-colors font-bold italic">
-                        <i data-lucide="settings" class="w-4 h-4"></i>
-                        Global Settings
+
+                    <a href="change-password.php" class="flex items-center gap-3 px-4 py-2.5 text-sm text-gray-600 hover:bg-navy/5 hover:text-navy transition-colors font-bold italic">
+                        <i data-lucide="key-round" class="w-4 h-4"></i>
+                        Password Reset
                     </a>
                     <hr class="my-2 border-gray-50">
                     <a href="/Learning-Mangment/auth/logout.php" class="flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition-colors font-bold italic">

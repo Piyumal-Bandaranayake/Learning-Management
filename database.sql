@@ -94,6 +94,7 @@ CREATE TABLE IF NOT EXISTS timetable (
     id INT AUTO_INCREMENT PRIMARY KEY,
     class_name VARCHAR(150) NOT NULL,
     class_time VARCHAR(50) NOT NULL,
+    class_location VARCHAR(150) NOT NULL,
     class_description TEXT,
     day_name VARCHAR(20) NOT NULL,
     class_image VARCHAR(255) NOT NULL,
