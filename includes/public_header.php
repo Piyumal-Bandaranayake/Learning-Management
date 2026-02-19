@@ -201,7 +201,7 @@
                     
                     <div class="flex flex-col">
                         <!-- Main Logo Text with Custom Styling -->
-                        <span id="nav-logo-text" class="text-3xl font-black text-white tracking-tighter uppercase italic leading-none mb-1">
+                        <span id="nav-logo-text" class="text-3xl font-black text-white tracking-tighter uppercase leading-none mb-1">
                             GUIDEWAY
                         </span>
                         <!-- Red Branding Bar with Subtext -->
@@ -227,31 +227,27 @@
                         <div class="relative group">
                             <button class="flex items-center gap-3 p-1.5 bg-white/5 hover:bg-white/10 rounded-2xl transition-all border border-white/5">
                                 <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($_SESSION['name'] ?? 'U'); ?>&background=0B3C5D&color=FFFFFF" alt="Profile" class="w-8 h-8 rounded-xl shadow-sm">
-                                <span id="nav-profile-name" class="text-white font-bold text-sm italic transition-colors"><?php echo explode(' ', $_SESSION['name'])[0]; ?></span>
+                                <span id="nav-profile-name" class="text-white font-bold text-sm transition-colors"><?php echo explode(' ', $_SESSION['name'])[0]; ?></span>
                                 <i data-lucide="chevron-down" class="w-4 h-4 text-white/50"></i>
                             </button>
                             
                             <!-- Dropdown -->
-                            <div class="absolute right-0 mt-3 w-64 bg-white rounded-[2rem] shadow-2xl border border-gray-100 py-4 hidden group-hover:block transition-all transform origin-top-right z-[100]">
-                                <div class="px-6 py-3 border-b border-gray-50 mb-3 text-center">
-                                    <p class="text-[10px] font-black text-gray-400 uppercase tracking-[0.2em] mb-1">Authenticated Account</p>
-                                    <p class="text-sm font-black text-navy italic"><?php echo htmlspecialchars($_SESSION['name']); ?></p>
+                            <div class="absolute right-0 mt-1 w-48 bg-white rounded-xl shadow-lg border border-gray-100 py-1.5 hidden group-hover:block transition-all transform origin-top-right z-[100]">
+                                <div class="px-4 py-2 border-b border-gray-50 mb-1">
+                                    <p class="text-[8px] font-black text-gray-400 uppercase tracking-widest leading-none mb-1">Logged in as</p>
+                                    <p class="text-[11px] font-black text-navy truncate leading-none"><?php echo htmlspecialchars($_SESSION['name']); ?></p>
                                 </div>
                                 
-                                <a href="<?php echo ($_SESSION['role'] === 'admin') ? 'admin/dashboard.php' : 'dashboard.php'; ?>" class="flex items-center gap-4 px-6 py-3 text-sm text-gray-600 hover:bg-navy/5 hover:text-navy transition-colors font-bold italic">
-                                    <div class="bg-navy/5 p-2 rounded-xl group-hover:bg-navy/10 transition-colors">
-                                        <i data-lucide="layout-dashboard" class="w-4 h-4"></i>
-                                    </div>
-                                    <span>My Dashboard</span>
+                                <a href="<?php echo ($_SESSION['role'] === 'admin') ? 'admin/dashboard.php' : 'dashboard.php'; ?>" class="flex items-center gap-2.5 px-4 py-2 text-[11px] text-gray-600 hover:bg-navy/5 hover:text-navy transition-colors font-bold">
+                                    <i data-lucide="layout-dashboard" class="w-3.5 h-3.5 text-gray-400 group-hover:text-navy"></i>
+                                    <span>Dashboard</span>
                                 </a>
                                 
-                                <hr class="my-3 border-gray-50 mx-6">
+                                <div class="my-1 border-t border-gray-50 mx-3"></div>
                                 
-                                <a href="/Learning-Mangment/auth/logout.php" class="flex items-center gap-4 px-6 py-3 text-sm text-red-600 hover:bg-red-50 transition-colors font-bold italic">
-                                    <div class="bg-red-50 p-2 rounded-xl">
-                                        <i data-lucide="log-out" class="w-4 h-4"></i>
-                                    </div>
-                                    <span>Logout Account</span>
+                                <a href="/Learning-Mangment/auth/logout.php" class="flex items-center gap-2.5 px-4 py-2 text-[11px] text-red-600 hover:bg-red-50 transition-colors font-bold">
+                                    <i data-lucide="log-out" class="w-3.5 h-3.5"></i>
+                                    <span>Sign Out</span>
                                 </a>
                             </div>
                         </div>
