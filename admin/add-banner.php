@@ -123,7 +123,6 @@ include 'includes/navbar.php';
                 </div>
 
                 <div class="flex items-center justify-end gap-4 pt-4">
-                    <button type="reset" class="px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-navy bg-gray-100 hover:bg-gray-200 transition-all text-xs" <?php echo $limit_reached ? 'disabled' : ''; ?>>Reset Form</button>
                     <button type="submit" class="px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-white bg-navy hover:bg-navy-light transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs" <?php echo $limit_reached ? 'disabled' : ''; ?>>Upload Banner</button>
                 </div>
             </form>
