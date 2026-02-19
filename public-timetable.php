@@ -38,40 +38,95 @@ include 'includes/public_header.php';
 ?>
 
 <!-- Timetable Hero Section -->
-<header class="relative bg-navy py-24 overflow-hidden border-none shadow-none">
+<header class="bg-gradient-navy text-white py-32 relative overflow-hidden border-b-[6px] border-blue-500/20">
+    <div class="absolute inset-0 bg-gradient-mesh opacity-30"></div>
+    
+    <!-- Premium Background Design -->
+    <div class="absolute inset-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-1/2 left-0 w-96 h-96 bg-blue-400/10 rounded-full blur-[100px] -translate-x-1/2"></div>
+        <div class="absolute -bottom-24 -right-24 w-[500px] h-[500px] bg-white/5 rounded-full blur-[120px] animate-blob"></div>
+    </div>
+
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <h1 class="text-5xl lg:text-6xl font-black text-white mb-6 italic tracking-tight uppercase">Physical Class Schedule</h1>
-        <p class="text-xl text-blue-100/70 max-w-2xl leading-relaxed italic font-medium mx-auto">
+        <h1 data-aos="fade-down" class="text-5xl lg:text-7xl font-black text-white mb-6 italic tracking-tight uppercase leading-[1.2]">
+            Physical <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-white pr-4 pb-2">Schedule</span>
+        </h1>
+        <p data-aos="fade-up" data-aos-delay="100" class="text-xl text-blue-100/70 max-w-2xl leading-relaxed italic font-medium mx-auto">
             Join our in-person sessions. Find your class and check the available slots.
         </p>
     </div>
-    
-    <!-- Background Glow -->
-    <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 rounded-full blur-[100px] -translate-y-1/2 translate-x-1/2"></div>
 </header>
 
-<section class="py-24 bg-gray-50 min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<section id="timetable-catalog-section" class="py-24 bg-white relative overflow-hidden group/section">
+    <!-- Ultra-Creative Background Design - Sync with Studio Aesthetic -->
+    <div class="absolute inset-0 pointer-events-none">
+        <!-- Main Mesh Gradient -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(37,99,235,0.05),transparent_70%)]"></div>
 
+        <!-- Interactive Glow -->
+        <div id="timetable-bg-glow" class="absolute w-[800px] h-[800px] bg-blue-500/15 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 opacity-0 group-hover/section:opacity-100"></div>
+
+        <!-- Floating Abstract Shapes -->
+        <div class="absolute top-[10%] left-[5%] w-64 h-64 bg-gradient-to-br from-blue-400/20 to-indigo-500/10 rounded-full blur-3xl animate-blob"></div>
+        <div class="absolute bottom-[20%] right-[10%] w-80 h-80 bg-gradient-to-tr from-purple-400/20 to-pink-500/10 rounded-full blur-3xl animate-blob animation-delay-2000"></div>
+        
+        <!-- Artistic SVG Paths -->
+        <svg class="absolute top-0 right-0 w-1/2 h-full opacity-[0.05] text-blue-600" viewBox="0 0 400 600" fill="none">
+            <path d="M400 100C300 150 250 50 150 100C50 150 0 350 100 450S300 550 400 500" stroke="currentColor" stroke-width="3" stroke-dasharray="15 15" class="animate-[pulse_8s_infinite]" />
+        </svg>
+
+        <!-- Glassmorphic Decorative Accent -->
+        <div class="absolute bottom-1/4 -right-12 w-80 h-64 bg-gradient-to-tr from-white/40 to-purple-100/30 border border-white/60 backdrop-blur-xl rounded-[3rem] rotate-12 shadow-2xl opacity-40"></div>
+
+        <!-- Large Typographic Watermark -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18rem] font-black text-blue-900 opacity-[0.015] select-none leading-none tracking-tighter italic whitespace-nowrap">
+            TIMETABLE
+        </div>
+    </div>
+
+    <!-- Mouse motion script -->
+    <script>
+        const tSection = document.getElementById('timetable-catalog-section');
+        const tGlow = document.getElementById('timetable-bg-glow');
+        if (tSection && tGlow) {
+            tSection.addEventListener('mousemove', (e) => {
+                const rect = tSection.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                tGlow.style.left = `${x}px`;
+                tGlow.style.top = `${y}px`;
+            });
+        }
+    </script>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <?php if (empty($grouped_classes)): ?>
-            <div class="py-32 bg-white rounded-[3rem] shadow-xl shadow-navy/5 border border-gray-100 text-center">
-                <div class="w-24 h-24 bg-gray-50 rounded-3xl flex items-center justify-center mx-auto mb-6">
-                    <i data-lucide="calendar-x" class="text-gray-300 w-12 h-12"></i>
+            <div data-aos="zoom-in" class="py-32 bg-white rounded-[4rem] shadow-xl shadow-navy/5 border border-gray-100 text-center relative overflow-hidden">
+                <div class="absolute inset-0 bg-blue-50/20"></div>
+                <div class="relative z-10">
+                    <div class="w-24 h-24 bg-blue-50 rounded-3xl flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="calendar-x" class="text-blue-300 w-12 h-12"></i>
+                    </div>
+                    <h3 class="text-2xl font-black text-navy italic uppercase">No Classes Scheduled</h3>
+                    <p class="text-gray-400 font-bold italic mt-2">Check back later for new physical class sessions.</p>
                 </div>
-                <h3 class="text-2xl font-black text-navy italic uppercase">No Classes Scheduled</h3>
-                <p class="text-gray-400 font-bold italic mt-2">Check back later for new physical class sessions.</p>
             </div>
         <?php else: ?>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-                <?php foreach ($grouped_classes as $class): ?>
+                <?php $card_count = 0; foreach ($grouped_classes as $class): ?>
                     <?php 
                         $info = $class['info']; 
                         $sessions_json = htmlspecialchars(json_encode($class['sessions']), ENT_QUOTES, 'UTF-8');
                         $info_json = htmlspecialchars(json_encode($info), ENT_QUOTES, 'UTF-8');
                     ?>
-                    <div class="timetable-card bg-white rounded-[3rem] border border-gray-100 shadow-xl shadow-navy/5 overflow-hidden group hover:border-navy/20 transition-all duration-500 cursor-pointer flex flex-col h-full"
+                    <div data-aos="fade-up" data-aos-delay="<?php echo ($card_count % 4) * 100; ?>" 
+                         class="timetable-card bg-gradient-to-b from-white to-blue-50/50 rounded-[3rem] border border-blue-100/50 shadow-xl shadow-navy/5 overflow-hidden group hover:-translate-y-2 transition-all duration-500 cursor-pointer flex flex-col h-full relative"
                          data-info="<?php echo $info_json; ?>"
                          data-sessions="<?php echo $sessions_json; ?>">
+                        <?php $card_count++; ?>
+                        
+                        <!-- Top Glow hidden till hover -->
+                        <div class="absolute -top-12 -right-12 w-24 h-24 bg-blue-400/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
                         
                         <!-- Class Image -->
                         <div class="relative h-56 overflow-hidden bg-navy">
@@ -80,7 +135,6 @@ include 'includes/public_header.php';
                                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                                      alt="<?php echo htmlspecialchars($info['title']); ?>">
                             <?php else: ?>
-                                <!-- Fallback Layout if image missing -->
                                 <div class="w-full h-full bg-navy flex items-center justify-center group-hover:scale-110 transition-transform duration-700">
                                     <i data-lucide="image-off" class="text-white/20 w-16 h-16"></i>
                                 </div>
@@ -88,36 +142,37 @@ include 'includes/public_header.php';
                             
                             <div class="absolute inset-0 bg-navy/20 group-hover:bg-navy/10 transition-colors"></div>
                             
-                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-lg border border-white/50">
                                 <div class="flex items-center gap-1.5 text-navy">
-                                    <i data-lucide="clock" class="w-3 h-3"></i>
+                                    <i data-lucide="clock" class="w-3 h-3 text-blue-500"></i>
                                     <span class="text-[10px] font-black uppercase tracking-widest italic"><?php echo htmlspecialchars($info['duration']); ?></span>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="p-8 flex-1 flex flex-col">
-                            <h3 class="text-xl font-black text-navy italic mb-2 line-clamp-2 group-hover:text-blue-500 transition-colors">
+                        <div class="p-8 flex-1 flex flex-col relative z-10">
+                            <h3 class="text-xl font-black text-navy italic mb-2 line-clamp-2 group-hover:text-blue-600 transition-colors leading-tight">
                                 <?php echo htmlspecialchars($info['title']); ?>
                             </h3>
-                            <p class="text-xs font-bold text-gray-400 italic mb-6 line-clamp-3">
+                            <p class="text-xs font-bold text-gray-500 italic mb-6 line-clamp-3 leading-relaxed">
                                 <?php echo htmlspecialchars($info['short_desc']); ?>
                             </p>
                             
-                            <div class="mt-auto flex items-center gap-3">
-                                <div class="w-8 h-8 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center">
-                                    <i data-lucide="user" class="w-4 h-4"></i>
+                            <div class="mt-auto flex items-center gap-4 pt-6 border-t border-blue-50">
+                                <div class="w-10 h-10 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center shadow-sm group-hover:bg-navy group-hover:text-white transition-colors duration-500">
+                                    <i data-lucide="user" class="w-5 h-5"></i>
                                 </div>
                                 <div>
-                                    <p class="text-[9px] font-black uppercase text-gray-400 tracking-widest leading-none">Instructor</p>
+                                    <p class="text-[9px] font-black uppercase text-gray-400 tracking-[0.2em] leading-none mb-1">Instructor</p>
                                     <p class="text-xs font-black text-navy italic"><?php echo htmlspecialchars($info['instructor']); ?></p>
                                 </div>
                             </div>
                         </div>
 
                         <div class="px-8 pb-8">
-                            <button class="w-full py-4 bg-navy text-white rounded-2xl font-black uppercase italic tracking-widest text-[10px] group-hover:bg-blue-600 transition-colors shadow-lg shadow-navy/20">
-                                View Schedule
+                            <button class="w-full py-4 bg-navy text-white rounded-2xl font-black uppercase italic tracking-widest text-[10px] group-hover:bg-blue-600 transition-all shadow-xl shadow-navy/20 active:scale-95 flex items-center justify-center gap-2">
+                                View Schedule 
+                                <i data-lucide="calendar" class="w-4 h-4"></i>
                             </button>
                         </div>
                     </div>

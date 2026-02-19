@@ -8,8 +8,10 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <style>
-        body { font-family: 'Outfit', sans-serif; }
+        body { font-family: 'Outfit', sans-serif; overflow-x: hidden; }
         .nav-link { position: relative; transition: color 0.3s ease; }
         .nav-link::after {
             content: '';
@@ -42,6 +44,33 @@
         .nav-text-dark {
             color: #0B3C5D !important;
         }
+
+        /* Background Animations */
+        @keyframes blob {
+            0% { transform: translate(0px, 0px) scale(1); }
+            33% { transform: translate(30px, -50px) scale(1.1); }
+            66% { transform: translate(-20px, 20px) scale(0.9); }
+            100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animate-blob {
+            animation: blob 7s infinite;
+        }
+        .animation-delay-2000 {
+            animation-delay: 2s;
+        }
+        .animation-delay-4000 {
+            animation-delay: 4s;
+        }
+
+        /* Gradient Utilities */
+        .bg-theme-gradient {
+            background: linear-gradient(135deg, #0B3C5D 0%, #1d4e6f 50%, #082d46 100%);
+        }
+        .text-gradient {
+            background: linear-gradient(to right, #60A5FA, #ffffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
     </style>
     <script>
         tailwind.config = {
@@ -52,11 +81,29 @@
                             DEFAULT: '#0B3C5D',
                             light: '#1d4e6f',
                             dark: '#082d46',
+                        },
+                        accent: {
+                            blue: '#4CAF50',
+                            green: '#2196F3',
+                            orange: '#FF9800'
                         }
+                    },
+                    backgroundImage: {
+                        'gradient-navy': 'linear-gradient(135deg, #0B3C5D 0%, #1d4e6f 50%, #082d46 100%)',
+                        'gradient-mesh': 'radial-gradient(at 0% 0%, rgba(29, 78, 216, 0.15) 0, transparent 50%), radial-gradient(at 50% 0%, rgba(30, 64, 175, 0.15) 0, transparent 50%), radial-gradient(at 100% 0%, rgba(37, 99, 235, 0.15) 0, transparent 50%)',
                     }
                 }
             }
         }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            AOS.init({
+                duration: 1000,
+                once: true,
+                offset: 100,
+                easing: 'ease-out-cubic'
+            });
+        });
 
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('main-nav');
