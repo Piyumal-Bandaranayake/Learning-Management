@@ -64,8 +64,8 @@ include 'includes/navbar.php';
                 <div class="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mx-auto mb-4 backdrop-blur-md">
                     <i data-lucide="key-round" class="w-8 h-8 text-white"></i>
                 </div>
-                <h2 class="text-2xl font-black uppercase italic tracking-widest">Security Settings</h2>
-                <p class="text-blue-200 text-[10px] mt-1 uppercase font-bold tracking-[0.2em] italic">Change Administrative Password</p>
+                <h2 class="text-2xl font-black uppercase tracking-widest">Security Settings</h2>
+                <p class="text-blue-200 text-[10px] mt-1 uppercase font-bold tracking-[0.2em]">Change Administrative Password</p>
             </div>
             <!-- Decorative Graphics -->
             <div class="absolute top-0 right-0 w-32 h-32 bg-white/5 rounded-full blur-2xl -translate-y-1/2 translate-x-1/2"></div>
@@ -76,14 +76,14 @@ include 'includes/navbar.php';
             <?php if (!empty($errors)): ?>
                 <div class="mb-8 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-xl space-y-1">
                     <?php foreach ($errors as $error): ?>
-                        <p class="text-sm font-bold italic">• <?php echo $error; ?></p>
+                        <p class="text-sm font-bold">• <?php echo $error; ?></p>
                     <?php endforeach; ?>
                 </div>
             <?php endif; ?>
 
             <?php if ($success): ?>
                 <div class="mb-8 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-xl flex items-center justify-between">
-                    <p class="text-sm font-bold italic"><?php echo $success; ?></p>
+                    <p class="text-sm font-bold"><?php echo $success; ?></p>
                     <i data-lucide="check-circle-2" class="w-5 h-5 text-green-500"></i>
                 </div>
             <?php endif; ?>
@@ -91,7 +91,7 @@ include 'includes/navbar.php';
             <form action="change-password.php" method="POST" class="space-y-6">
                 <!-- Current Password -->
                 <div>
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-[0.15em] italic mb-2 ml-1">Current Password</label>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-[0.15em] mb-2 ml-1">Current Password</label>
                     <div class="relative group">
                         <i data-lucide="lock" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors group-focus-within:text-navy"></i>
                         <input type="password" name="current_password" id="current_pass" required
@@ -107,7 +107,7 @@ include 'includes/navbar.php';
 
                 <!-- New Password -->
                 <div>
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-[0.15em] italic mb-2 ml-1">New Password</label>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-[0.15em] mb-2 ml-1">New Password</label>
                     <div class="relative group">
                         <i data-lucide="shield-check" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors group-focus-within:text-navy"></i>
                         <input type="password" name="new_password" id="new_pass" required
@@ -117,12 +117,12 @@ include 'includes/navbar.php';
                             <i data-lucide="eye" id="icon-2" class="w-4 h-4"></i>
                         </button>
                     </div>
-                    <p class="text-[9px] text-gray-400 mt-2 font-bold italic ml-1 uppercase tracking-widest leading-tight">Must be at least 8 characters long with numbers and letters.</p>
+                    <p class="text-[9px] text-gray-400 mt-2 font-bold ml-1 uppercase tracking-widest leading-tight">Must be at least 8 characters long with numbers and letters.</p>
                 </div>
 
                 <!-- Confirm New Password -->
                 <div>
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-[0.15em] italic mb-2 ml-1">Confirm New Password</label>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-[0.15em] mb-2 ml-1">Confirm New Password</label>
                     <div class="relative group">
                         <i data-lucide="shield-check" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4 transition-colors group-focus-within:text-navy"></i>
                         <input type="password" name="confirm_password" id="confirm_pass" required
@@ -150,11 +150,11 @@ include 'includes/navbar.php';
                 </script>
 
                 <div class="pt-4">
-                    <button type="submit" class="w-full bg-navy text-white py-5 rounded-2xl font-black uppercase italic tracking-[0.2em] hover:bg-navy-dark transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs flex items-center justify-center gap-2">
+                    <button type="submit" class="w-full bg-navy text-white py-5 rounded-2xl font-black uppercase tracking-[0.2em] hover:bg-navy-dark transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs flex items-center justify-center gap-2">
                         Update Password
                         <i data-lucide="arrow-right" class="w-4 h-4"></i>
                     </button>
-                    <p class="text-center text-[10px] text-gray-400 mt-4 font-bold italic uppercase tracking-widest leading-tight">Changing your password will NOT logout current sessions.</p>
+                    <p class="text-center text-[10px] text-gray-400 mt-4 font-bold uppercase tracking-widest leading-tight">Changing your password will NOT logout current sessions.</p>
                 </div>
             </form>
         </div>

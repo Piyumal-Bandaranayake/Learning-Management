@@ -93,7 +93,7 @@ include 'includes/navbar.php';
     <div class="bg-white rounded-[2.5rem] shadow-xl shadow-navy/5 border border-gray-100 overflow-hidden">
         <div class="bg-navy p-8 text-white relative overflow-hidden">
             <div class="relative z-10">
-                <h1 class="text-2xl font-black uppercase italic tracking-widest">Add Physical Class</h1>
+                <h1 class="text-2xl font-black uppercase tracking-widest">Add Physical Class</h1>
                 <p class="text-blue-200 text-[10px] mt-1 uppercase font-bold tracking-[0.2em] opacity-80">Setup class details and multiple locations</p>
             </div>
             <i data-lucide="calendar" class="absolute -right-4 -bottom-4 w-32 h-32 text-white/5 rotate-12"></i>
@@ -102,7 +102,7 @@ include 'includes/navbar.php';
         <div class="p-8">
             <?php if (!empty($errors)): ?>
                 <div class="mb-8 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-xl">
-                    <ul class="list-disc ml-5 text-[10px] font-black uppercase tracking-widest italic">
+                    <ul class="list-disc ml-5 text-[10px] font-black uppercase tracking-widest">
                         <?php foreach ($errors as $error): ?>
                             <li><?php echo htmlspecialchars($error); ?></li>
                         <?php endforeach; ?>
@@ -112,8 +112,8 @@ include 'includes/navbar.php';
 
             <?php if ($success): ?>
                 <div class="mb-8 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-xl flex items-center justify-between">
-                    <p class="text-[10px] font-black uppercase tracking-widest italic"><?php echo htmlspecialchars($success); ?></p>
-                    <a href="manage-timetable.php" class="bg-green-600 text-white px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-[0.2em] italic">View Timetable</a>
+                    <p class="text-[10px] font-black uppercase tracking-widest"><?php echo htmlspecialchars($success); ?></p>
+                    <a href="manage-timetable.php" class="bg-green-600 text-white px-4 py-1.5 rounded-lg text-[9px] font-black uppercase tracking-[0.2em]">View Timetable</a>
                 </div>
             <?php endif; ?>
 
@@ -123,36 +123,36 @@ include 'includes/navbar.php';
                 <div class="space-y-6">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-1.5 h-6 bg-navy rounded-full"></div>
-                        <h2 class="text-xs font-black uppercase italic tracking-widest text-navy">1. Class Information</h2>
+                        <h2 class="text-xs font-black uppercase tracking-widest text-navy">1. Class Information</h2>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="md:col-span-2">
-                            <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Class Title</label>
+                            <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Class Title</label>
                             <input type="text" name="class_title" placeholder="e.g. Advanced Physics Workshop" required
                                    class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-bold text-navy placeholder:text-gray-300">
                         </div>
 
                         <div class="md:col-span-2">
-                            <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Short Description</label>
+                            <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Short Description</label>
                             <input type="text" name="short_description" placeholder="Brief summary for preview cards" required
                                    class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-bold text-navy placeholder:text-gray-300">
                         </div>
 
                         <div class="md:col-span-2">
-                            <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Full Description</label>
+                            <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Full Description</label>
                             <textarea name="full_description" rows="3" placeholder="Detailed description of the class..." required
                                       class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-bold text-navy placeholder:text-gray-300 resize-none"></textarea>
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Instructor</label>
+                            <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Instructor</label>
                             <input type="text" name="instructor" placeholder="e.g. Dr. Jane Doe" required
                                    class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-bold text-navy placeholder:text-gray-300">
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Duration</label>
+                            <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Duration</label>
                             <input type="text" name="duration" placeholder="e.g. 2 Hours" required
                                    class="w-full px-5 py-4 rounded-2xl border border-gray-100 bg-gray-50/50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-bold text-navy placeholder:text-gray-300">
                         </div>
@@ -163,16 +163,16 @@ include 'includes/navbar.php';
                 <div class="space-y-6">
                     <div class="flex items-center gap-2 mb-2">
                         <div class="w-1.5 h-6 bg-navy rounded-full"></div>
-                        <h2 class="text-xs font-black uppercase italic tracking-widest text-navy">2. Branding</h2>
+                        <h2 class="text-xs font-black uppercase tracking-widest text-navy">2. Branding</h2>
                     </div>
                     <div>
-                         <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Cover Image</label>
+                         <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Cover Image</label>
                          <div class="relative group">
                             <input type="file" name="class_image" id="class_image" accept="image/*" required class="hidden">
                             <label for="class_image" class="flex flex-col items-center justify-center w-full min-h-[160px] rounded-3xl border-2 border-dashed border-gray-200 bg-gray-50/30 hover:bg-gray-50 hover:border-navy/20 cursor-pointer transition-all p-6 text-center">
                                 <i data-lucide="image-plus" class="w-8 h-8 text-gray-300 mb-3 group-hover:text-navy transition-colors"></i>
-                                <span id="fileName" class="text-[10px] font-black text-gray-400 uppercase tracking-widest italic group-hover:text-navy">Click to upload class header image</span>
-                                <span class="text-[9px] text-gray-300 mt-2 font-bold uppercase tracking-widest italic">800x600px recommended | Max 5MB</span>
+                                <span id="fileName" class="text-[10px] font-black text-gray-400 uppercase tracking-widest group-hover:text-navy">Click to upload class header image</span>
+                                <span class="text-[9px] text-gray-300 mt-2 font-bold uppercase tracking-widest">800x600px recommended | Max 5MB</span>
                             </label>
                          </div>
                     </div>
@@ -183,9 +183,9 @@ include 'includes/navbar.php';
                     <div class="flex items-center justify-between mb-2">
                         <div class="flex items-center gap-2">
                             <div class="w-1.5 h-6 bg-navy rounded-full"></div>
-                            <h2 class="text-xs font-black uppercase italic tracking-widest text-navy">3. Locations & Schedule</h2>
+                            <h2 class="text-xs font-black uppercase tracking-widest text-navy">3. Locations & Schedule</h2>
                         </div>
-                        <button type="button" id="addSession" class="flex items-center gap-2 bg-navy/5 text-navy px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] italic hover:bg-navy hover:text-white transition-all">
+                        <button type="button" id="addSession" class="flex items-center gap-2 bg-navy/5 text-navy px-4 py-2 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] hover:bg-navy hover:text-white transition-all">
                             <i data-lucide="plus-circle" class="w-3.5 h-3.5"></i>
                             Add Location
                         </button>
@@ -196,12 +196,12 @@ include 'includes/navbar.php';
                         <div class="session-row p-6 bg-gray-50/50 rounded-3xl border border-gray-100 relative group">
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                                 <div>
-                                    <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Location</label>
+                                    <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Location</label>
                                     <input type="text" name="sessions[0][location]" placeholder="e.g. Science Lab 101" required
                                            class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-white focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-bold text-navy placeholder:text-gray-200">
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Day</label>
+                                    <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Day</label>
                                     <div class="relative">
                                         <select name="sessions[0][day_name]" required
                                                 class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-white focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-bold text-navy appearance-none cursor-pointer">
@@ -214,7 +214,7 @@ include 'includes/navbar.php';
                                     </div>
                                 </div>
                                 <div>
-                                    <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Time</label>
+                                    <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Time</label>
                                     <input type="time" name="sessions[0][class_time]" required
                                            class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-white focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-bold text-navy">
                                 </div>
@@ -224,7 +224,7 @@ include 'includes/navbar.php';
                 </div>
 
                 <div class="pt-6">
-                    <button type="submit" class="w-full py-5 bg-navy text-white rounded-[2rem] font-black uppercase italic tracking-[0.3em] text-xs hover:bg-blue-600 transition-all shadow-2xl shadow-navy/20 active:scale-[0.98] flex items-center justify-center gap-3">
+                    <button type="submit" class="w-full py-5 bg-navy text-white rounded-[2rem] font-black uppercase tracking-[0.3em] text-xs hover:bg-blue-600 transition-all shadow-2xl shadow-navy/20 active:scale-[0.98] flex items-center justify-center gap-3">
                         <i data-lucide="save" class="w-4 h-4"></i>
                         Confirm Schedule
                     </button>
@@ -242,12 +242,12 @@ include 'includes/navbar.php';
         </button>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div>
-                <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Location</label>
+                <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Location</label>
                 <input type="text" name="sessions[{{index}}][location]" placeholder="e.g. Library Annex" required
                        class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-white focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-bold text-navy placeholder:text-gray-200">
             </div>
             <div>
-                <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Day</label>
+                <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Day</label>
                 <div class="relative">
                     <select name="sessions[{{index}}][day_name]" required
                             class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-white focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-bold text-navy appearance-none cursor-pointer">
@@ -260,7 +260,7 @@ include 'includes/navbar.php';
                 </div>
             </div>
             <div>
-                <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] italic mb-2 ml-1">Time</label>
+                <label class="block text-[10px] font-black uppercase text-gray-400 tracking-[0.15em] mb-2 ml-1">Time</label>
                 <input type="time" name="sessions[{{index}}][class_time]" required
                        class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-white focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-bold text-navy">
             </div>
