@@ -5,6 +5,14 @@
         // Initialize Lucide Icons
         lucide.createIcons();
 
+        // Initialize AOS
+        AOS.init({
+            duration: 1000,
+            once: true,
+            offset: 50,
+            easing: 'ease-out-cubic'
+        });
+
         // Sidebar logic
         function toggleSidebar() {
             const sidebar = document.getElementById('sidebar');

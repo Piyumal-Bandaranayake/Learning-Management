@@ -3,19 +3,63 @@ session_start();
 include 'includes/public_header.php'; 
 ?>
 
-<section class="min-h-[95vh] flex items-center justify-center bg-gray-50 py-20 px-4">
-    <div class="max-w-xl w-full">
+<section id="reg-auth-section" class="min-h-screen flex items-center justify-center bg-white py-24 px-4 relative overflow-hidden group/auth">
+    <!-- Ultra-Creative Studio Background -->
+    <div class="absolute inset-0 pointer-events-none">
+        <!-- Main Mesh Glow -->
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(37,99,235,0.1),transparent_70%)]"></div>
+
+        <!-- Interactive Glow (following mouse) -->
+        <div id="reg-auth-bg-glow" class="absolute w-[800px] h-[800px] bg-blue-500/20 rounded-full blur-[150px] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-1000 opacity-0 group-hover/auth:opacity-100"></div>
+
+        <!-- Artistic Large Blobs - Increased Vibrancy -->
+        <div class="absolute -bottom-[10%] -left-[10%] w-[700px] h-[700px] bg-gradient-to-br from-blue-200/50 to-cyan-100/30 rounded-full blur-[130px] animate-blob"></div>
+        <div class="absolute top-[0%] -right-[10%] w-[600px] h-[600px] bg-gradient-to-tr from-purple-200/50 to-pink-200/40 rounded-full blur-[130px] animate-blob animation-delay-2000"></div>
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-indigo-50/50 rounded-full blur-[150px]"></div>
+
+        <!-- Pattern Overlay -->
+        <div class="absolute inset-0 opacity-[0.6]" style="background-image: url('data:image/svg+xml,%3Csvg width=\"40\" height=\"40\" viewBox=\"0 0 40 40\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"%230B3C5D\" fill-opacity=\"0.1\" fill-rule=\"evenodd\"%3E%3Ccircle cx=\"2\" cy=\"2\" r=\"1\"/%3E%3C/g%3E%3C/svg%3E');"></div>
+        
+        <!-- Artistic SVG Lines -->
+        <svg class="absolute bottom-0 left-0 w-full h-full opacity-[0.1] text-blue-600" viewBox="0 0 1200 800" fill="none">
+            <path d="M0 600C300 500 600 700 900 600C1200 500 1500 600 1800 500" stroke="currentColor" stroke-width="4" stroke-dasharray="20 20" />
+        </svg>
+
+        <!-- Typographic Watermark - Increased Visibility -->
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18rem] font-black text-blue-900 opacity-[0.03] select-none tracking-tighter italic uppercase">
+            REGISTER
+        </div>
+    </div>
+
+    <!-- Mouse motion script -->
+    <script>
+        const rAuthSection = document.getElementById('reg-auth-section');
+        const rAuthGlow = document.getElementById('reg-auth-bg-glow');
+        if (rAuthSection && rAuthGlow) {
+            rAuthSection.addEventListener('mousemove', (e) => {
+                const rect = rAuthSection.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                rAuthGlow.style.left = `${x}px`;
+                rAuthGlow.style.top = `${y}px`;
+            });
+        }
+    </script>
+
+    <div class="max-w-2xl w-full relative z-10">
         <!-- Brand -->
-        <div class="text-center mb-10">
-            <div class="bg-navy p-3 rounded-2xl text-white inline-block mb-4 shadow-xl shadow-navy/20">
-                <i data-lucide="graduation-cap" class="w-10 h-10"></i>
+        <div class="text-center mb-12" data-aos="fade-down">
+            <div class="bg-navy p-3 rounded-2xl text-white inline-block mb-6 shadow-2xl shadow-navy/30 relative group/icon">
+                <div class="absolute inset-0 bg-blue-400 rounded-2xl blur-xl opacity-0 group-hover/icon:opacity-40 transition-opacity"></div>
+                <i data-lucide="graduation-cap" class="w-10 h-10 relative z-10"></i>
             </div>
-            <h1 class="text-3xl font-extrabold text-navy italic">Join Guideway Learning Network</h1>
-            <p class="text-gray-500 mt-2">Create your student account to start learning</p>
+            <h1 class="text-4xl lg:text-5xl font-extrabold text-navy italic tracking-tight uppercase leading-tight">Join <span class="text-blue-600 pr-2">Guideway</span> Network</h1>
+            <p class="text-gray-500 mt-4 font-medium italic">Create your student account to unlock your potential.</p>
         </div>
 
         <!-- Registration Card -->
-        <div class="bg-white p-10 rounded-[2.5rem] shadow-xl shadow-navy/5 border border-gray-100">
+        <div class="bg-white/80 backdrop-blur-xl p-10 rounded-[3rem] shadow-2xl shadow-navy/10 border border-white/50 relative overflow-hidden group/card" data-aos="fade-up">
+            <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover/card:bg-blue-500/10 transition-colors"></div>
             
             <!-- Error Alerts -->
             <?php if (isset($_SESSION['register_errors'])): ?>

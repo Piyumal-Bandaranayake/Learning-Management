@@ -22,7 +22,7 @@
 
                 <!-- Quick Links -->
                 <div>
-                    <h4 class="text-lg font-bold mb-6 italic">Quick Links</h4>
+                    <h4 class="text-lg font-bold mb-6">Quick Links</h4>
                     <ul class="space-y-4 text-blue-100/70 text-sm">
                         <li><a href="index.php" class="hover:text-white transition-colors">Home</a></li>
                         <li><a href="about.php" class="hover:text-white transition-colors">About Us</a></li>
@@ -33,7 +33,7 @@
 
                 <!-- Support -->
                 <div>
-                    <h4 class="text-lg font-bold mb-6 italic">Support</h4>
+                    <h4 class="text-lg font-bold mb-6">Support</h4>
                     <ul class="space-y-4 text-blue-100/70 text-sm">
                         <li><a href="#" class="hover:text-white transition-colors">Terms of Service</a></li>
                         <li><a href="#" class="hover:text-white transition-colors">Contact Support</a></li>
@@ -42,7 +42,7 @@
 
                 <!-- Contact Info -->
                 <div>
-                    <h4 class="text-lg font-bold mb-6 italic">Contact Us</h4>
+                    <h4 class="text-lg font-bold mb-6">Contact Us</h4>
                     <ul class="space-y-4 text-blue-100/70 text-sm">
                         <li class="flex items-start gap-3">
                             <i data-lucide="map-pin" class="w-5 h-5 text-blue-400"></i>

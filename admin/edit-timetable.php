@@ -104,7 +104,7 @@ include 'includes/navbar.php';
     <div class="bg-white rounded-3xl shadow-xl shadow-navy/5 border border-gray-100 overflow-hidden">
         <div class="bg-navy p-8 text-white relative overflow-hidden">
             <div class="relative z-10">
-                <h2 class="text-2xl font-black uppercase italic tracking-widest">Edit Class Session</h2>
+                <h2 class="text-2xl font-black uppercase tracking-widest">Edit Class Session</h2>
                 <p class="text-blue-200 text-xs mt-1 uppercase font-bold tracking-widest">Update physical class details</p>
             </div>
             <i data-lucide="edit-3" class="absolute -right-4 -bottom-4 w-32 h-32 text-white/10 rotate-12"></i>
@@ -113,7 +113,7 @@ include 'includes/navbar.php';
         <div class="p-8">
             <?php if (!empty($errors)): ?>
                 <div class="mb-8 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-xl">
-                    <ul class="list-disc ml-5 text-sm font-bold italic">
+                    <ul class="list-disc ml-5 text-sm font-bold">
                         <?php foreach ($errors as $error): ?>
                             <li><?php echo htmlspecialchars($error); ?></li>
                         <?php endforeach; ?>
@@ -123,44 +123,44 @@ include 'includes/navbar.php';
 
             <?php if ($success): ?>
                 <div class="mb-8 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-xl flex items-center justify-between">
-                    <p class="text-sm font-bold italic"><?php echo htmlspecialchars($success); ?></p>
-                    <a href="manage-timetable.php" class="bg-green-600 text-white px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest italic">Return to List</a>
+                    <p class="text-sm font-bold"><?php echo htmlspecialchars($success); ?></p>
+                    <a href="manage-timetable.php" class="bg-green-600 text-white px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest">Return to List</a>
                 </div>
             <?php endif; ?>
 
             <form action="edit-timetable.php?id=<?php echo $id; ?>" method="POST" enctype="multipart/form-data" class="space-y-6">
                  <!-- Class Title -->
                  <div>
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Class Title</label>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Class Title</label>
                     <input type="text" name="class_title" value="<?php echo htmlspecialchars($entry['class_title']); ?>" required
                            class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                 </div>
 
                 <!-- Short Description -->
                 <div>
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Short Description</label>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Short Description</label>
                     <input type="text" name="short_description" value="<?php echo htmlspecialchars($entry['short_description']); ?>" required
                            class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                 </div>
 
                  <!-- Full Description -->
                 <div>
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Full Description</label>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Full Description</label>
                     <textarea name="full_description" rows="4" required
-                              class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy resize-none"><?php echo htmlspecialchars($entry['full_description']); ?></textarea>
+                               class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy resize-none"><?php echo htmlspecialchars($entry['full_description']); ?></textarea>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Instructor -->
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Instructor</label>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Instructor</label>
                         <input type="text" name="instructor" value="<?php echo htmlspecialchars($entry['instructor']); ?>" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
 
                     <!-- Duration -->
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Duration</label>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Duration</label>
                         <input type="text" name="duration" value="<?php echo htmlspecialchars($entry['duration']); ?>" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
@@ -169,14 +169,14 @@ include 'includes/navbar.php';
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <!-- Location -->
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Location</label>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Location</label>
                         <input type="text" name="location" value="<?php echo htmlspecialchars($entry['location']); ?>" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
 
                     <!-- Day of Week -->
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Day</label>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Day</label>
                         <select name="day_name" required
                                 class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy appearance-none">
                             <option value="" disabled>Select Day</option>
@@ -188,7 +188,7 @@ include 'includes/navbar.php';
 
                     <!-- Time -->
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Time</label>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Time</label>
                         <input type="time" name="class_time" value="<?php echo htmlspecialchars($entry['class_time']); ?>" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
@@ -196,7 +196,7 @@ include 'includes/navbar.php';
 
                 <!-- Image Upload -->
                 <div>
-                     <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Class Image</label>
+                     <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Class Image</label>
                      <?php if (!empty($entry['class_image'])): ?>
                         <div class="mb-4 relative w-32 h-32 rounded-xl overflow-hidden border border-gray-200">
                             <img src="../<?php echo htmlspecialchars($entry['class_image']); ?>" class="w-full h-full object-cover">
@@ -204,12 +204,12 @@ include 'includes/navbar.php';
                      <?php endif; ?>
                      <input type="file" name="class_image" accept="image/*"
                             class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-black file:uppercase file:bg-navy/10 file:text-navy hover:file:bg-navy/20">
-                     <p class="text-[10px] text-gray-400 mt-1 italic ml-1">Leave empty to keep current image. Recommended size: 800x600px | Max: 5MB</p>
+                     <p class="text-[10px] text-gray-400 mt-1 ml-1">Leave empty to keep current image. Recommended size: 800x600px | Max: 5MB</p>
                 </div>
 
                 <div class="flex items-center justify-end gap-4 pt-4">
-                    <a href="manage-timetable.php" class="px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest text-navy bg-gray-100 hover:bg-gray-200 transition-all text-xs">Cancel</a>
-                    <button type="submit" class="px-10 py-4 rounded-2xl font-black uppercase italic tracking-widest text-white bg-navy hover:bg-navy-light transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs">Update Session</button>
+                    <a href="manage-timetable.php" class="px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-navy bg-gray-100 hover:bg-gray-200 transition-all text-xs">Cancel</a>
+                    <button type="submit" class="px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-white bg-navy hover:bg-navy-light transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs">Update Session</button>
                 </div>
             </form>
         </div>
