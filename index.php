@@ -31,12 +31,12 @@ include 'includes/public_header.php';
             <div class="lg:col-span-6 text-center lg:text-left order-2 lg:order-1">
                 <div class="max-w-xl mx-auto lg:mx-0">
                     <div data-aos="fade-right" data-aos-delay="100">
-                        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-blue-200 text-[10px] font-black uppercase tracking-[0.2em] italic mb-6 backdrop-blur-sm">
+                        <span class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 border border-white/20 text-blue-200 text-[10px] font-black uppercase tracking-[0.2em] mb-6 backdrop-blur-sm">
                             <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
                             Welcome to Guideway Learning Network
                         </span>
                     </div>
-                    <h1 data-aos="fade-right" data-aos-delay="200" class="text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-[1.1] mb-6 italic uppercase tracking-tight">
+                    <h1 data-aos="fade-right" data-aos-delay="200" class="text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-[1.1] mb-6 uppercase tracking-tight">
                         Upgrade Your <br>
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-blue-100 to-white pr-4 pb-2">Learning</span> <br>
                         Experience
@@ -45,11 +45,11 @@ include 'includes/public_header.php';
                         Join thousands of students mastering new skills with our professional, flexible, and interactive platform. Start your journey today!
                     </p>
                     <div data-aos="fade-right" data-aos-delay="400" class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
-                        <a href="courses.php" class="bg-white text-navy px-10 py-4 rounded-2xl font-black uppercase italic tracking-widest hover:bg-blue-50 transition-all shadow-xl shadow-black/20 text-xs flex items-center justify-center gap-2 group whitespace-nowrap">
+                        <a href="courses.php" class="bg-white text-navy px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-blue-50 transition-all shadow-xl shadow-black/20 text-xs flex items-center justify-center gap-2 group whitespace-nowrap">
                             View Courses
                             <i data-lucide="arrow-right" class="w-4 h-4 group-hover:translate-x-1 transition-transform"></i>
                         </a>
-                        <a href="register.php" class="bg-white/5 text-white border-2 border-white/10 px-10 py-4 rounded-2xl font-black uppercase italic tracking-widest hover:bg-white hover:text-navy transition-all text-xs flex items-center justify-center whitespace-nowrap">
+                        <a href="register.php" class="bg-white/5 text-white border-2 border-white/10 px-10 py-4 rounded-2xl font-black uppercase tracking-widest hover:bg-white hover:text-navy transition-all text-xs flex items-center justify-center whitespace-nowrap">
                             Create Account
                         </a>
                     </div>
@@ -137,7 +137,7 @@ include 'includes/public_header.php';
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center max-w-3xl mx-auto mb-20" data-aos="fade-up">
-            <h2 class="text-4xl font-extrabold text-navy mb-4 italic uppercase tracking-tight">Why Students Choose Us?</h2>
+            <h2 class="text-4xl font-extrabold text-navy mb-4 uppercase tracking-tight">Why Students Choose Us?</h2>
             <p class="text-gray-500 leading-relaxed font-medium">We provide a high-end educational experience designed to provide the best tools for your professional growth.</p>
         </div>
 
@@ -184,6 +184,64 @@ include 'includes/public_header.php';
     </div>
 </section>
 
+<!-- Navigation Hub Section -->
+<section class="py-24 bg-white relative overflow-hidden group/hub">
+    <!-- Sophisticated Background Elements -->
+    <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-blue-50/50 rounded-full blur-[120px] -z-10"></div>
+    </div>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="text-center max-w-3xl mx-auto mb-20" data-aos="fade-up">
+            <span class="text-blue-500 font-extrabold text-[10px] uppercase tracking-[0.4em] mb-4 block">Quick Access Portal</span>
+            <h2 class="text-4xl lg:text-5xl font-black text-navy uppercase tracking-tight">Navigation <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Hub</span></h2>
+            <p class="text-gray-500 font-medium mt-4">Everything you need to manage your learning journey, all in one place.</p>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            <!-- Hub Item 1: Dashboard -->
+            <a href="<?php echo isset($_SESSION['user_id']) ? 'dashboard.php' : 'login.php'; ?>" 
+               data-aos="fade-up" data-aos-delay="100"
+               class="p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 hover:bg-navy hover:text-white transition-all duration-500 group/item shadow-sm hover:shadow-2xl hover:-translate-y-2 text-center flex flex-col items-center">
+                <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover/item:bg-white/10 transition-colors">
+                    <i data-lucide="layout-dashboard" class="w-8 h-8 text-navy group-hover/item:text-white"></i>
+                </div>
+                <h3 class="text-xs font-black uppercase tracking-widest text-navy group-hover/item:text-white">Portal Dashboard</h3>
+            </a>
+
+            <!-- Hub Item 2: Timetable -->
+            <a href="public-timetable.php" 
+               data-aos="fade-up" data-aos-delay="200"
+               class="p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 hover:bg-navy hover:text-white transition-all duration-500 group/item shadow-sm hover:shadow-2xl hover:-translate-y-2 text-center flex flex-col items-center">
+                <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover/item:bg-white/10 transition-colors">
+                    <i data-lucide="calendar" class="w-8 h-8 text-navy group-hover/item:text-white"></i>
+                </div>
+                <h3 class="text-xs font-black uppercase tracking-widest text-navy group-hover/item:text-white">Weekly Schedule</h3>
+            </a>
+
+            <!-- Hub Item 3: All Courses -->
+            <a href="courses.php" 
+               data-aos="fade-up" data-aos-delay="300"
+               class="p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 hover:bg-navy hover:text-white transition-all duration-500 group/item shadow-sm hover:shadow-2xl hover:-translate-y-2 text-center flex flex-col items-center">
+                <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover/item:bg-white/10 transition-colors">
+                    <i data-lucide="book-open" class="w-8 h-8 text-navy group-hover/item:text-white"></i>
+                </div>
+                <h3 class="text-xs font-black uppercase tracking-widest text-navy group-hover/item:text-white">Course Catalog</h3>
+            </a>
+
+            <!-- Hub Item 4: My Registrations -->
+            <a href="<?php echo isset($_SESSION['user_id']) ? 'my-registrations.php' : 'login.php'; ?>" 
+               data-aos="fade-up" data-aos-delay="400"
+               class="p-10 rounded-[2.5rem] bg-gray-50 border border-gray-100 hover:bg-navy hover:text-white transition-all duration-500 group/item shadow-sm hover:shadow-2xl hover:-translate-y-2 text-center flex flex-col items-center">
+                <div class="w-16 h-16 bg-white rounded-2xl shadow-sm flex items-center justify-center mb-6 group-hover/item:bg-white/10 transition-colors">
+                    <i data-lucide="file-check" class="w-8 h-8 text-navy group-hover/item:text-white"></i>
+                </div>
+                <h3 class="text-xs font-black uppercase tracking-widest text-navy group-hover/item:text-white">My Admissions</h3>
+            </a>
+        </div>
+    </div>
+</section>
+
 <!-- Featured Courses Section -->
 <?php if (!empty($featured_courses)): ?>
 <section id="featured-courses-section" class="py-24 bg-gradient-to-b from-blue-50/20 to-white relative overflow-hidden group/section">
@@ -219,7 +277,7 @@ include 'includes/public_header.php';
         <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-6 text-center md:text-left">
             <div data-aos="fade-right">
                 <span class="text-blue-500 font-black text-[10px] uppercase tracking-[0.3em] mb-2 block">Premium Selection</span>
-                <h2 class="text-4xl lg:text-5xl font-black text-navy uppercase italic tracking-tighter">Featured <span class="relative inline-block">Courses<span class="absolute -bottom-1 left-0 w-full h-3 bg-blue-400/20 -z-10 -rotate-1"></span></span></h2>
+                <h2 class="text-4xl lg:text-5xl font-black text-navy uppercase tracking-tighter">Featured <span class="relative inline-block pr-4">Courses<span class="absolute -bottom-1 left-0 w-full h-3 bg-blue-400/20 -z-10 -rotate-1"></span></span></h2>
             </div>
         </div>
 
@@ -248,7 +306,7 @@ include 'includes/public_header.php';
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" 
                              alt="<?php echo htmlspecialchars($course['course_title']); ?>">
                         <div class="absolute top-6 left-6 bg-white/90 backdrop-blur-md px-4 py-1.5 rounded-full shadow-lg">
-                            <span class="text-[10px] font-black uppercase text-navy tracking-widest italic">Rs. <?php echo number_format($course['price'], 2); ?></span>
+                            <span class="text-[10px] font-black uppercase text-navy tracking-widest">Rs. <?php echo number_format($course['price'], 2); ?></span>
                         </div>
                     </div>
                     <div class="p-8">
@@ -256,11 +314,11 @@ include 'includes/public_header.php';
                             <i data-lucide="user" class="w-4 h-4 text-blue-500"></i>
                             <span class="text-xs font-bold text-gray-400 uppercase tracking-widest"><?php echo htmlspecialchars($course['instructor']); ?></span>
                         </div>
-                        <h3 class="text-2xl font-black text-navy mb-4 italic line-clamp-2"><?php echo htmlspecialchars($course['course_title']); ?></h3>
+                        <h3 class="text-2xl font-black text-navy mb-4 line-clamp-2"><?php echo htmlspecialchars($course['course_title']); ?></h3>
                         <p class="text-gray-500 text-sm mb-8 line-clamp-3 leading-relaxed">
                             <?php echo htmlspecialchars($course['description']); ?>
                         </p>
-                        <a href="courses.php" class="w-full bg-navy text-white text-center py-4 rounded-2xl font-bold uppercase italic tracking-widest text-xs hover:bg-navy-dark transition-all flex items-center justify-center gap-2">
+                        <a href="courses.php" class="w-full bg-navy text-white text-center py-4 rounded-2xl font-bold uppercase tracking-widest text-xs hover:bg-navy-dark transition-all flex items-center justify-center gap-2">
                             View Details <i data-lucide="chevron-right" class="w-4 h-4"></i>
                         </a>
                     </div>
@@ -269,7 +327,7 @@ include 'includes/public_header.php';
         </div>
 
         <div class="flex justify-center">
-            <a href="courses.php" class="inline-flex items-center gap-4 bg-white border-2 border-navy text-navy px-12 py-5 rounded-[2rem] font-black uppercase italic tracking-widest hover:bg-navy hover:text-white transition-all group shadow-xl shadow-navy/5">
+            <a href="courses.php" class="inline-flex items-center gap-4 bg-white border-2 border-navy text-navy px-12 py-5 rounded-[2rem] font-black uppercase tracking-widest hover:bg-navy hover:text-white transition-all group shadow-xl shadow-navy/5">
                 Explore More Courses
                 <i data-lucide="layout-grid" class="w-5 h-5 group-hover:rotate-12 transition-transform"></i>
             </a>
@@ -297,11 +355,11 @@ include 'includes/public_header.php';
             <div class="absolute inset-0 opacity-10" style="background-image: url('data:image/svg+xml,%3Csvg width=\"60\" height=\"60\" viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\"%3E%3Cg fill=\"none\" fill-rule=\"evenodd\"%3E%3Cg fill=\"%23ffffff\" fill-opacity=\"0.2\"%3E%3Cpath d=\"M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E');"></div>
 
             <div class="relative z-10 max-w-3xl mx-auto">
-                <span class="inline-block px-6 py-2 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-black uppercase tracking-[0.3em] italic mb-8 backdrop-blur-md">
+                <span class="inline-block px-6 py-2 rounded-full bg-white/10 border border-white/20 text-blue-200 text-xs font-black uppercase tracking-[0.3em] mb-8 backdrop-blur-md">
                     Start Your Tomorrow
                 </span>
-                <h2 class="text-5xl md:text-7xl font-black text-white mb-8 italic leading-[1.1] tracking-tighter">
-                    Ready to <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-cyan-200 to-white">transform</span> <br> 
+                <h2 class="text-5xl md:text-7xl font-black text-white mb-8 leading-[1.1] tracking-tighter">
+                    Ready to <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-cyan-200 to-white pr-4">transform</span> <br> 
                     your future?
                 </h2>
                 <p class="text-blue-100/70 text-xl mb-12 leading-relaxed font-medium">
@@ -309,7 +367,7 @@ include 'includes/public_header.php';
                 </p>
                 
                 <div class="flex flex-col sm:flex-row gap-6 justify-center items-center">
-                    <a href="register.php" class="bg-white text-navy px-12 py-5 rounded-2xl font-black uppercase italic tracking-widest text-lg hover:bg-blue-50 transition-all shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex items-center justify-center gap-3 group/btn">
+                    <a href="register.php" class="bg-white text-navy px-12 py-5 rounded-2xl font-black uppercase tracking-widest text-lg hover:bg-blue-50 transition-all shadow-[0_20px_50px_rgba(0,0,0,0.3)] flex items-center justify-center gap-3 group/btn">
                         Register Now
                         <div class="bg-navy text-white p-1 rounded-lg group-hover/btn:translate-x-1 transition-transform">
                             <i data-lucide="arrow-up-right" class="w-5 h-5"></i>

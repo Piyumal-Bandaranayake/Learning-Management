@@ -4,8 +4,8 @@
 <header class="bg-gradient-navy text-white py-32 relative overflow-hidden border-b-[6px] border-blue-500/20">
     <div class="absolute inset-0 bg-gradient-mesh opacity-30"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
-        <h1 data-aos="fade-down" class="text-5xl lg:text-7xl font-black text-white mb-6 italic tracking-tight uppercase leading-[1.1]">Our Story and <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-white pr-4">Vision</span></h1>
-        <p data-aos="fade-up" data-aos-delay="100" class="text-xl text-blue-100/70 max-w-2xl leading-relaxed italic font-medium mx-auto">
+        <h1 data-aos="fade-down" class="text-5xl lg:text-7xl font-black text-white mb-6 tracking-tight uppercase leading-[1.1]">Our Story and <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-white pr-4">Vision</span></h1>
+        <p data-aos="fade-up" data-aos-delay="100" class="text-xl text-blue-100/70 max-w-2xl leading-relaxed font-medium mx-auto">
             At Guideway Learning Network, we believe education is the key to unlocking human potential. Discover how we're reshaping the learning landscape.
         </p>
     </div>
@@ -45,7 +45,7 @@
                 <div class="absolute -bottom-10 -right-10 w-64 h-64 bg-blue-400/10 rounded-full blur-[100px] -z-10 animate-blob"></div>
             </div>
             <div data-aos="fade-left">
-                <h2 class="text-4xl lg:text-5xl font-black text-navy mb-2 italic tracking-tighter uppercase whitespace-nowrap">Meet Your Instructor</h2>
+                <h2 class="text-4xl lg:text-5xl font-black text-navy mb-2 tracking-tighter uppercase whitespace-nowrap">Meet Your Instructor</h2>
                 <h3 class="text-2xl font-bold text-blue-500 mb-6 flex items-center gap-3">
                     Mr. Danushka Nilanka
                     <span class="w-12 h-1 bg-blue-500/20 rounded-full"></span>
@@ -55,7 +55,7 @@
                     B.CA &bull; Over 12 Years Experience
                 </div>
 
-                <div class="space-y-6 text-gray-500 leading-relaxed text-lg italic">
+                <div class="space-y-6 text-gray-500 leading-relaxed text-lg">
                     <p>
                         "The goal of education is the advancement of knowledge and the dissemination of truth." 
                     </p>
@@ -110,7 +110,7 @@
         <div class="absolute bottom-[15%] right-[5%] w-32 h-32 bg-gradient-to-br from-blue-100/40 to-blue-200/20 border border-white/40 backdrop-blur-xl rounded-full -rotate-12 shadow-xl opacity-60 animate-pulse"></div>
         
         <!-- Large Text Watermark -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18rem] font-black text-blue-900 opacity-[0.015] select-none tracking-tighter leading-none italic">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[18rem] font-black text-blue-900 opacity-[0.015] select-none tracking-tighter leading-none">
             CORE
         </div>
     </div>
@@ -118,7 +118,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-28" data-aos="fade-up">
             <span class="text-blue-500 font-black text-[10px] uppercase tracking-[0.4em] mb-4 block">Our Values</span>
-            <h2 class="text-5xl lg:text-7xl font-black text-navy italic mb-6 uppercase tracking-tighter">Core <span class="relative inline-block">Principles<span class="absolute -bottom-1 left-0 w-full h-4 bg-blue-400/20 -z-10 -rotate-1"></span></span></h2>
+            <h2 class="text-5xl lg:text-7xl font-black text-navy mb-6 uppercase tracking-tighter">Core <span class="relative inline-block pr-4">Principles<span class="absolute -bottom-1 left-0 w-full h-4 bg-blue-400/20 -z-10 -rotate-1"></span></span></h2>
             <p class="text-gray-500 font-medium max-w-lg mx-auto leading-relaxed">The foundational values that guide our mission and make us an industry leader.</p>
         </div>
 
@@ -141,32 +141,32 @@
                 <div class="w-16 h-16 bg-white/80 backdrop-blur-sm shadow-sm rounded-2xl flex items-center justify-center mb-6 group-hover:bg-navy group-hover:text-white transition-all duration-500">
                     <i data-lucide="shield-check" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-navy text-xl mb-3 italic">Certified Merit</h3>
-                <p class="text-sm text-gray-600 leading-relaxed italic font-medium">All our certificates are blockchain-verified and recognized globally.</p>
+                <h3 class="font-black text-navy text-xl mb-3">Certified Merit</h3>
+                <p class="text-sm text-gray-600 leading-relaxed font-medium">All our certificates are blockchain-verified and recognized globally.</p>
             </div>
             <div data-aos="fade-up" data-aos-delay="200" class="bg-gradient-to-br from-indigo-50 to-purple-100/30 p-8 rounded-[2rem] shadow-sm border border-indigo-200/30 hover:shadow-2xl hover:scale-105 transition-all group relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-indigo-400/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-indigo-400/10 transition-colors"></div>
                 <div class="w-16 h-16 bg-white/80 backdrop-blur-sm shadow-sm rounded-2xl flex items-center justify-center mb-6 group-hover:bg-navy group-hover:text-white transition-all duration-500">
                     <i data-lucide="zap" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-navy text-xl mb-3 italic">Live Interaction</h3>
-                <p class="text-sm text-gray-600 leading-relaxed italic font-medium">Direct Q&A sessions with instructors during every live Course module.</p>
+                <h3 class="font-black text-navy text-xl mb-3">Live Interaction</h3>
+                <p class="text-sm text-gray-600 leading-relaxed font-medium">Direct Q&A sessions with instructors during every live Course module.</p>
             </div>
             <div data-aos="fade-up" data-aos-delay="300" class="bg-gradient-to-br from-cyan-50 to-blue-100/30 p-8 rounded-[2rem] shadow-sm border border-cyan-200/30 hover:shadow-2xl hover:scale-105 transition-all group relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-cyan-400/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-cyan-400/10 transition-colors"></div>
                 <div class="w-16 h-16 bg-white/80 backdrop-blur-sm shadow-sm rounded-2xl flex items-center justify-center mb-6 group-hover:bg-navy group-hover:text-white transition-all duration-500">
                     <i data-lucide="globe" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-navy text-xl mb-3 italic">Diverse Community</h3>
-                <p class="text-sm text-gray-600 leading-relaxed italic font-medium">Network with professionals from various industries worldwide.</p>
+                <h3 class="font-black text-navy text-xl mb-3">Diverse Community</h3>
+                <p class="text-sm text-gray-600 leading-relaxed font-medium">Network with professionals from various industries worldwide.</p>
             </div>
             <div data-aos="fade-up" data-aos-delay="400" class="bg-gradient-to-br from-blue-50 to-purple-100/30 p-8 rounded-[2rem] shadow-sm border border-blue-200/30 hover:shadow-2xl hover:scale-105 transition-all group relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-24 h-24 bg-purple-400/5 rounded-full -translate-y-1/2 translate-x-1/2 group-hover:bg-purple-400/10 transition-colors"></div>
                 <div class="w-16 h-16 bg-white/80 backdrop-blur-sm shadow-sm rounded-2xl flex items-center justify-center mb-6 group-hover:bg-navy group-hover:text-white transition-all duration-500">
                     <i data-lucide="award" class="w-8 h-8"></i>
                 </div>
-                <h3 class="font-black text-navy text-xl mb-3 italic">Top Quality</h3>
-                <p class="text-sm text-gray-600 leading-relaxed italic font-medium">Our curriculum is updated monthly to reflect latest industry trends.</p>
+                <h3 class="font-black text-navy text-xl mb-3">Top Quality</h3>
+                <p class="text-sm text-gray-600 leading-relaxed font-medium">Our curriculum is updated monthly to reflect latest industry trends.</p>
             </div>
         </div>
     </div>
@@ -200,7 +200,7 @@
         <div class="absolute bottom-[10%] left-[5%] w-32 h-32 bg-indigo-50/50 border border-indigo-200/50 backdrop-blur-xl rounded-full shadow-xl animate-bounce"></div>
 
         <!-- Typographic Watermark -->
-        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15rem] font-black text-blue-900 opacity-[0.015] select-none tracking-tighter italic">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15rem] font-black text-blue-900 opacity-[0.015] select-none tracking-tighter">
             CONTACT
         </div>
     </div>
@@ -223,8 +223,8 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="text-center mb-20" data-aos="fade-up">
             <span class="text-blue-500 font-extrabold text-xs uppercase tracking-[0.4em] mb-4 block">Communication Portal</span>
-            <h2 class="text-5xl lg:text-7xl font-black text-navy italic mb-6 uppercase tracking-tighter">Get in <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600">Touch</span></h2>
-            <p class="text-gray-500 font-medium max-w-lg mx-auto leading-relaxed italic">We'd love to hear from you. Visit us or reach out directly.</p>
+            <h2 class="text-5xl lg:text-7xl font-black text-navy mb-6 uppercase tracking-tighter">Get in <span class="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 pr-4">Touch</span></h2>
+            <p class="text-gray-500 font-medium max-w-lg mx-auto leading-relaxed">We'd love to hear from you. Visit us or reach out directly.</p>
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -233,7 +233,7 @@
                 <div class="absolute inset-0 bg-gradient-mesh opacity-20"></div>
                 <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-400/20 rounded-full blur-[100px] animate-blob"></div>
                 
-                <h3 class="text-3xl font-black mb-10 italic uppercase tracking-tight">Contact Info</h3>
+                <h3 class="text-3xl font-black mb-10 uppercase tracking-tight">Contact Info</h3>
                 
                 <div class="space-y-8 relative z-10">
                      <div class="flex items-start gap-6 group hover:translate-x-2 transition-transform duration-500">
@@ -242,7 +242,7 @@
                         </div>
                         <div>
                             <h4 class="text-blue-200 text-xs font-black uppercase tracking-[0.2em] mb-2">Visit Us</h4>
-                            <p class="text-lg font-bold leading-relaxed italic">No: 66, Nawammahara, Ragama,<br>Gampaha, Sri Lanka, 11100</p>
+                            <p class="text-lg font-bold leading-relaxed">No: 66, Nawammahara, Ragama,<br>Gampaha, Sri Lanka, 11100</p>
                         </div>
                     </div>
 
@@ -252,7 +252,7 @@
                         </div>
                         <div>
                             <h4 class="text-blue-200 text-xs font-black uppercase tracking-[0.2em] mb-2">Email Us</h4>
-                            <a href="mailto:nilankanaw@gmail.com" class="text-xl font-bold italic hover:text-blue-300 transition-colors">nilankanaw@gmail.com</a>
+                            <a href="mailto:nilankanaw@gmail.com" class="text-xl font-bold hover:text-blue-300 transition-colors">nilankanaw@gmail.com</a>
                         </div>
                     </div>
 
@@ -262,7 +262,7 @@
                         </div>
                         <div>
                             <h4 class="text-blue-200 text-xs font-black uppercase tracking-[0.2em] mb-2">Call Us</h4>
-                            <a href="tel:0770886853" class="text-xl font-bold italic hover:text-blue-300 transition-colors">077 088 6853</a>
+                            <a href="tel:0770886853" class="text-xl font-bold hover:text-blue-300 transition-colors">077 088 6853</a>
                         </div>
                     </div>
                 </div>
