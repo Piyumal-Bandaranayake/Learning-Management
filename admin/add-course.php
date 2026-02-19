@@ -48,34 +48,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     // Video ZIP Upload Handling
-    $video_path = "";
-    if (isset($_FILES['course_video']) && $_FILES['course_video']['error'] === 0) {
-        $allowed_video = ['zip'];
-        $video_name = $_FILES['course_video']['name'];
-        $video_tmp = $_FILES['course_video']['tmp_name'];
-        $video_size = $_FILES['course_video']['size'];
-        $video_ext = strtolower(pathinfo($video_name, PATHINFO_EXTENSION));
+    $video_paths = [];
+    if (isset($_FILES['course_video']) && is_array($_FILES['course_video']['name'])) {
+        $file_count = count($_FILES['course_video']['name']);
+        for ($i = 0; $i < $file_count; $i++) {
+            if ($_FILES['course_video']['error'][$i] === 0) {
+                $allowed_video = ['zip'];
+                $video_name = $_FILES['course_video']['name'][$i];
+                $video_tmp = $_FILES['course_video']['tmp_name'][$i];
+                $video_size = $_FILES['course_video']['size'][$i];
+                $video_ext = strtolower(pathinfo($video_name, PATHINFO_EXTENSION));
 
-        if (!in_array($video_ext, $allowed_video)) {
-            $errors[] = "Invalid video format. Only .zip allowed.";
-        } elseif ($video_size > 10 * 1024 * 1024 * 1024) { // 10GB
-            $errors[] = "Video ZIP exceeds 10GB limit.";
-        } else {
-            $unique_name = uniqid('vid_', true) . '.' . $video_ext;
-            $video_path = "uploads/course_videos/" . $unique_name;
-            if (!move_uploaded_file($video_tmp, "../" . $video_path)) {
-                $errors[] = "Failed to upload video ZIP.";
+                if (!in_array($video_ext, $allowed_video)) {
+                    $errors[] = "File '$video_name' is not a valid format. Only .zip allowed.";
+                } elseif ($video_size > 10 * 1024 * 1024 * 1024) { // 10GB
+                    $errors[] = "File '$video_name' exceeds 10GB limit.";
+                } else {
+                    $unique_name = uniqid('vid_', true) . '_' . $i . '.' . $video_ext;
+                    $video_path = "uploads/course_videos/" . $unique_name;
+                    if (move_uploaded_file($video_tmp, "../" . $video_path)) {
+                        $video_paths[] = $video_path;
+                    } else {
+                        $errors[] = "Failed to upload $video_name.";
+                    }
+                }
             }
         }
-    } else {
-        $errors[] = "Course video ZIP is required.";
     }
+
+    if (empty($video_paths) && empty($errors)) {
+        $errors[] = "At least one course video ZIP is required.";
+    }
+
+    $video_path_string = json_encode($video_paths);
 
     // Insert into DB
     if (empty($errors)) {
         try {
             $stmt = $db->prepare("INSERT INTO courses (course_title, instructor, description, duration, price, image, video_zip) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$course_title, $instructor, $description, $duration, $price, $image_path, $video_path]);
+            $stmt->execute([$course_title, $instructor, $description, $duration, $price, $image_path, $video_path_string]);
             $success = "Course created successfully!";
         } catch (PDOException $e) {
             $errors[] = "Database error: " . $e->getMessage();
@@ -92,7 +103,7 @@ include 'includes/navbar.php';
     <div class="bg-white rounded-3xl shadow-xl shadow-navy/5 border border-gray-100 overflow-hidden">
         <div class="bg-navy p-8 text-white relative overflow-hidden">
             <div class="relative z-10">
-                <h2 class="text-2xl font-black uppercase italic tracking-widest">Create New Course</h2>
+                <h2 class="text-2xl font-black uppercase tracking-widest">Create New Course</h2>
                 <p class="text-blue-200 text-xs mt-1 uppercase font-bold tracking-widest">Add a new curriculum to the platform</p>
             </div>
             <i data-lucide="plus-circle" class="absolute -right-4 -bottom-4 w-32 h-32 text-white/10 rotate-12"></i>
@@ -101,7 +112,7 @@ include 'includes/navbar.php';
         <div class="p-8">
             <?php if (!empty($errors)): ?>
                 <div class="mb-8 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-xl">
-                    <ul class="list-disc ml-5 text-sm font-bold italic">
+                    <ul class="list-disc ml-5 text-sm font-bold">
                         <?php foreach ($errors as $error): ?>
                             <li><?php echo $error; ?></li>
                         <?php endforeach; ?>
@@ -111,39 +122,39 @@ include 'includes/navbar.php';
 
             <?php if ($success): ?>
                 <div class="mb-8 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-xl flex items-center justify-between">
-                    <p class="text-sm font-bold italic"><?php echo $success; ?></p>
-                    <a href="manage-courses.php" class="bg-green-600 text-white px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest italic">View Catalog</a>
+                    <p class="text-sm font-bold"><?php echo $success; ?></p>
+                    <a href="manage-courses.php" class="bg-green-600 text-white px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest">View Catalog</a>
                 </div>
             <?php endif; ?>
 
             <form action="add-course.php" method="POST" enctype="multipart/form-data" class="space-y-6">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Course Title</label>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Course Title</label>
                         <input type="text" name="course_title" placeholder="e.g. Advanced PHP Mastery" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Instructor Name</label>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Instructor Name</label>
                         <input type="text" name="instructor" placeholder="e.g. John Doe" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Course Description</label>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Course Description</label>
                     <textarea name="description" rows="4" placeholder="Brief overview of the course curriculum..." required
                               class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-medium text-gray-600"></textarea>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Duration</label>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Duration</label>
                         <input type="text" name="duration" placeholder="e.g. 12 Weeks (48 Hours)" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
                     <div>
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Price (LKR)</label>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Price (LKR)</label>
                         <input type="number" step="0.01" name="price" placeholder="e.g. 15000" required
                                class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                     </div>
@@ -151,37 +162,33 @@ include 'includes/navbar.php';
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <div class="relative group">
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Course Thumbnail (PNG/JPG)</label>
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Course Thumbnail (PNG/JPG)</label>
                         <div id="image-preview-container" class="relative h-48 rounded-3xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center group-hover:border-navy/30 transition-all overflow-hidden">
                             <button type="button" id="remove-image" class="absolute top-3 right-3 z-30 bg-red-500 text-white p-1.5 rounded-full shadow-lg hover:bg-red-600 transition-all scale-0 group-hover:scale-100 hidden">
                                 <i data-lucide="x" class="w-4 h-4"></i>
                             </button>
                             <div id="image-placeholder" class="flex flex-col items-center text-center">
                                 <i data-lucide="image" class="w-12 h-12 text-gray-300 mb-2"></i>
-                                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest italic">Choose Image</span>
+                                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Choose Image</span>
                             </div>
                             <img id="image-preview" src="#" alt="Preview" class="absolute inset-0 w-full h-full object-cover hidden">
                             <input type="file" name="course_image" id="course_image" accept="image/*" required class="absolute inset-0 opacity-0 cursor-pointer z-10">
                         </div>
                     </div>
                     <div class="relative group">
-                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Video Material (ZIP)</label>
-                        <div id="zip-preview-container" class="relative h-48 rounded-3xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center group-hover:border-navy/30 transition-all overflow-hidden p-4">
-                            <button type="button" id="remove-zip" class="absolute top-3 right-3 z-30 bg-red-500 text-white p-1.5 rounded-full shadow-lg hover:bg-red-600 transition-all scale-0 group-hover:scale-100 hidden">
+                        <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Video Materials (Multiple ZIPs)</label>
+                        <div id="zip-preview-container" class="relative min-h-[12rem] rounded-3xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center group-hover:border-navy/30 transition-all overflow-hidden p-4">
+                            <button type="button" id="remove-zip" class="absolute top-3 right-3 z-30 bg-red-500 text-white p-1.5 rounded-full shadow-lg hover:bg-red-600 transition-all scale-100 hidden">
                                 <i data-lucide="x" class="w-4 h-4"></i>
                             </button>
-                            <div id="zip-placeholder" class="flex flex-col items-center text-center">
+                            <div id="zip-placeholder" class="flex flex-col items-center text-center py-4">
                                 <i data-lucide="file-archive" class="w-12 h-12 text-gray-300 mb-2"></i>
-                                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest italic">Choose ZIP File</span>
+                                <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Choose ZIP Files</span>
                             </div>
-                            <div id="zip-info" class="hidden flex flex-col items-center text-center space-y-2">
-                                <div class="w-12 h-12 bg-navy/5 rounded-2xl flex items-center justify-center">
-                                    <i data-lucide="file-check" class="w-6 h-6 text-navy"></i>
-                                </div>
-                                <p id="zip-filename" class="text-xs font-black text-navy italic truncate max-w-full px-2"></p>
-                                <span id="zip-filesize" class="text-[10px] font-black text-blue-400 uppercase tracking-widest italic"></span>
+                            <div id="zip-info-list" class="hidden w-full flex flex-col gap-2">
+                                <!-- Multiple ZIPs will be listed here -->
                             </div>
-                            <input type="file" name="course_video" id="course_video" accept=".zip" required class="absolute inset-0 opacity-0 cursor-pointer z-10">
+                            <input type="file" name="course_video[]" id="course_video" accept=".zip" multiple required class="absolute inset-0 opacity-0 cursor-pointer z-10">
                         </div>
                     </div>
                 </div>
@@ -239,43 +246,67 @@ include 'includes/navbar.php';
                     });
 
                     // ZIP Preview Logic with Validation
-                    const zipInfo = document.getElementById('zip-info');
+                    const zipInfoList = document.getElementById('zip-info-list');
                     const zipPlaceholder = document.getElementById('zip-placeholder');
-                    const filenameDisplay = document.getElementById('zip-filename');
-                    const filesizeDisplay = document.getElementById('zip-filesize');
                     const zipContainer = document.getElementById('zip-preview-container');
                     const removeZipBtn = document.getElementById('remove-zip');
 
                     zipInput.addEventListener('change', function(e) {
-                        const file = e.target.files[0];
-                        if (file) {
-                             // Validate ZIP Type and Size (10GB)
-                             // Note: MIME type for zip can vary, usually application/zip or application/x-zip-compressed
-                            if (file.name.split('.').pop().toLowerCase() !== 'zip') {
-                                alert('Invalid file type. Only .zip files are allowed.');
-                                this.value = '';
-                                return;
+                        const files = e.target.files;
+                        if (files.length > 0) {
+                            zipInfoList.innerHTML = '';
+                            let totalSize = 0;
+                            
+                            for (let i = 0; i < files.length; i++) {
+                                const file = files[i];
+                                if (file.name.split('.').pop().toLowerCase() !== 'zip') {
+                                    alert('File "' + file.name + '" is not a valid ZIP file.');
+                                    this.value = '';
+                                    zipInfoList.innerHTML = '';
+                                    return;
+                                }
+                                totalSize += file.size;
+
+                                const fileDiv = document.createElement('div');
+                                fileDiv.className = 'flex items-center gap-3 p-3 bg-white rounded-2xl border border-gray-100 shadow-sm';
+                                fileDiv.innerHTML = `
+                                    <div class="w-10 h-10 bg-navy/5 rounded-xl flex items-center justify-center shrink-0">
+                                        <i data-lucide="file-check" class="w-5 h-5 text-navy"></i>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="text-[10px] font-black text-navy truncate">${file.name}</p>
+                                        <span class="text-[9px] font-black text-blue-400 uppercase tracking-widest">${(file.size / (1024 * 1024)).toFixed(2)} MB</span>
+                                    </div>
+                                `;
+                                zipInfoList.appendChild(fileDiv);
                             }
-                            if (file.size > 10 * 1024 * 1024 * 1024) {
-                                alert('File size exceeds 10GB limit.');
+
+                            if (totalSize > 10 * 1024 * 1024 * 1024) {
+                                alert('Total file size exceeds 10GB limit.');
                                 this.value = '';
+                                zipInfoList.innerHTML = '';
                                 return;
                             }
 
-                            filenameDisplay.textContent = file.name;
-                            filesizeDisplay.textContent = (file.size / (1024 * 1024)).toFixed(2) + ' MB';
-                            zipInfo.classList.remove('hidden');
+                            zipInfoList.classList.remove('hidden');
                             zipPlaceholder.classList.add('hidden');
                             zipContainer.classList.add('border-navy/20');
-                            zipContainer.classList.remove('border-dashed');
+                            zipContainer.classList.remove('border-dashed', 'items-center', 'justify-center');
+                            zipContainer.classList.add('items-stretch', 'justify-start');
                             removeZipBtn.classList.remove('hidden');
+                            
+                            // Re-initialize Lucide icons for new elements
+                            if (window.lucide) {
+                                window.lucide.createIcons();
+                            }
                         }
                     });
 
                     removeZipBtn.addEventListener('click', function(e) {
                         e.preventDefault();
                         zipInput.value = '';
-                        zipInfo.classList.add('hidden');
+                        zipInfoList.innerHTML = '';
+                        zipInfoList.classList.add('hidden');
                         zipPlaceholder.classList.remove('hidden');
                         zipContainer.classList.remove('border-navy/20');
                         zipContainer.classList.add('border-dashed');
@@ -308,7 +339,7 @@ include 'includes/navbar.php';
 
                 <div class="flex items-center justify-end gap-4 pt-4">
 
-                    <button type="submit" class="px-10 py-4 rounded-2xl font-black uppercase italic tracking-widest text-white bg-navy hover:bg-navy-light transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs">Publish Course</button>
+                    <button type="submit" class="px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-white bg-navy hover:bg-navy-light transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs">Publish Course</button>
                 </div>
             </form>
         </div>

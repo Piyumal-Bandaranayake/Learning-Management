@@ -64,7 +64,7 @@ include 'includes/navbar.php';
     <div class="bg-white rounded-3xl shadow-xl shadow-navy/5 border border-gray-100 overflow-hidden">
         <div class="bg-navy p-8 text-white relative overflow-hidden">
             <div class="relative z-10">
-                <h2 class="text-2xl font-black uppercase italic tracking-widest">Add New Banner</h2>
+                <h2 class="text-2xl font-black uppercase tracking-widest">Add New Banner</h2>
                 <p class="text-blue-200 text-xs mt-1 uppercase font-bold tracking-widest">Upload a new image for the homepage slider</p>
             </div>
             <i data-lucide="image" class="absolute -right-4 -bottom-4 w-32 h-32 text-white/10 rotate-12"></i>
@@ -73,7 +73,7 @@ include 'includes/navbar.php';
         <div class="p-8">
             <?php if (!empty($errors)): ?>
                 <div class="mb-8 p-4 bg-red-50 border-l-4 border-red-500 text-red-700 rounded-xl">
-                    <ul class="list-disc ml-5 text-sm font-bold italic">
+                    <ul class="list-disc ml-5 text-sm font-bold">
                         <?php foreach ($errors as $error): ?>
                             <li><?php echo $error; ?></li>
                         <?php endforeach; ?>
@@ -83,8 +83,8 @@ include 'includes/navbar.php';
 
             <?php if ($success): ?>
                 <div class="mb-8 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-xl flex items-center justify-between">
-                    <p class="text-sm font-bold italic"><?php echo $success; ?></p>
-                    <a href="manage-banners.php" class="bg-green-600 text-white px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest italic">Manage Banners</a>
+                    <p class="text-sm font-bold"><?php echo $success; ?></p>
+                    <a href="manage-banners.php" class="bg-green-600 text-white px-4 py-1.5 rounded-lg text-xs font-black uppercase tracking-widest">Manage Banners</a>
                 </div>
             <?php endif; ?>
 
@@ -94,28 +94,28 @@ include 'includes/navbar.php';
                         <i data-lucide="alert-triangle" class="w-6 h-6"></i>
                     </div>
                     <div>
-                        <h4 class="font-black text-amber-900 uppercase italic text-sm mb-1 tracking-tight">Banner Limit Reached</h4>
-                        <p class="text-amber-700 text-xs font-semibold leading-relaxed">You have reached the maximum of 3 banners. You must delete an existing banner from the <a href="manage-banners.php" class="underline font-black italic">Gallery</a> before you can upload a new one.</p>
+                        <h4 class="font-black text-amber-900 uppercase text-sm mb-1 tracking-tight">Banner Limit Reached</h4>
+                        <p class="text-amber-700 text-xs font-semibold leading-relaxed">You have reached the maximum of 3 banners. You must delete an existing banner from the <a href="manage-banners.php" class="underline font-black">Gallery</a> before you can upload a new one.</p>
                     </div>
                 </div>
             <?php endif; ?>
 
             <form action="add-banner.php" method="POST" enctype="multipart/form-data" class="space-y-6 <?php echo $limit_reached ? 'opacity-50 pointer-events-none' : ''; ?>">
                 <div class="mb-6">
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Display Order</label>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Display Order</label>
                     <input type="number" name="display_order" value="1"
                             class="w-full px-4 py-3.5 rounded-2xl border border-gray-100 bg-gray-50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all font-semibold text-navy">
                 </div>
 
                 <div class="relative group">
-                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest italic mb-2 ml-1">Banner Image (PNG/JPG/WEBP)</label>
+                    <label class="block text-[10px] font-black uppercase text-navy tracking-widest mb-2 ml-1">Banner Image (PNG/JPG/WEBP)</label>
                     <div id="image-preview-container" class="relative h-64 rounded-3xl border-2 border-dashed border-gray-200 bg-gray-50 flex flex-col items-center justify-center group-hover:border-navy/30 transition-all overflow-hidden">
                         <button type="button" id="remove-image" class="absolute top-3 right-3 z-30 bg-red-500 text-white p-1.5 rounded-full shadow-lg hover:bg-red-600 transition-all scale-0 group-hover:scale-100 hidden">
                             <i data-lucide="x" class="w-4 h-4"></i>
                         </button>
                         <div id="image-placeholder" class="flex flex-col items-center text-center">
                             <i data-lucide="image" class="w-16 h-16 text-gray-300 mb-2"></i>
-                            <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest italic">Choose Banner Image</span>
+                            <span class="text-[10px] font-black text-gray-400 uppercase tracking-widest">Choose Banner Image</span>
                         </div>
                         <img id="image-preview" src="#" alt="Preview" class="absolute inset-0 w-full h-full object-cover hidden">
                         <input type="file" name="banner_image" id="banner_image" accept="image/*" <?php echo $limit_reached ? 'disabled' : 'required'; ?> class="absolute inset-0 opacity-0 cursor-pointer z-10">
@@ -123,8 +123,8 @@ include 'includes/navbar.php';
                 </div>
 
                 <div class="flex items-center justify-end gap-4 pt-4">
-                    <button type="reset" class="px-8 py-4 rounded-2xl font-black uppercase italic tracking-widest text-navy bg-gray-100 hover:bg-gray-200 transition-all text-xs" <?php echo $limit_reached ? 'disabled' : ''; ?>>Reset Form</button>
-                    <button type="submit" class="px-10 py-4 rounded-2xl font-black uppercase italic tracking-widest text-white bg-navy hover:bg-navy-light transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs" <?php echo $limit_reached ? 'disabled' : ''; ?>>Upload Banner</button>
+                    <button type="reset" class="px-8 py-4 rounded-2xl font-black uppercase tracking-widest text-navy bg-gray-100 hover:bg-gray-200 transition-all text-xs" <?php echo $limit_reached ? 'disabled' : ''; ?>>Reset Form</button>
+                    <button type="submit" class="px-10 py-4 rounded-2xl font-black uppercase tracking-widest text-white bg-navy hover:bg-navy-light transition-all shadow-xl shadow-navy/20 active:scale-95 text-xs" <?php echo $limit_reached ? 'disabled' : ''; ?>>Upload Banner</button>
                 </div>
             </form>
         </div>

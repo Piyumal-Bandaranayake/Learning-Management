@@ -87,25 +87,36 @@ include 'includes/sidebar.php';
     <!-- Assets List -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <?php 
-        // We'll look for the primary zip file first
-        if (!empty($course['video_zip'])): 
-            $file_path = __DIR__ . '/' . $course['video_zip'];
-            $file_size = 'N/A';
-            $file_ext = 'ZIP';
-            
-            if (file_exists($file_path)) {
-                $size_bytes = @filesize($file_path);
-                if ($size_bytes) {
-                    $file_size = round($size_bytes / (1024 * 1024), 2) . ' MB';
+        $video_zip_data = $course['video_zip'];
+        $video_files = json_decode($video_zip_data, true);
+        
+        // Backward compatibility for single file string
+        if (!$video_files && !empty($video_zip_data)) {
+            $video_files = [$video_zip_data];
+        }
+
+        if (!empty($video_files)): 
+            foreach ($video_files as $index => $zip_path):
+                $file_path = __DIR__ . '/' . $zip_path;
+                $file_size = 'N/A';
+                $file_ext = 'ZIP';
+                $display_name = "Course Package " . (count($video_files) > 1 ? ($index + 1) : "");
+                
+                if (file_exists($file_path)) {
+                    $size_bytes = @filesize($file_path);
+                    if ($size_bytes) {
+                        $file_size = round($size_bytes / (1024 * 1024), 2) . ' MB';
+                    }
+                    $file_ext = strtoupper(pathinfo($file_path, PATHINFO_EXTENSION));
                 }
-                $file_ext = strtoupper(pathinfo($file_path, PATHINFO_EXTENSION));
-            }
         ?>
-            <!-- Main Content Zip -->
-            <div data-aos="fade-up" class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 shadow-xl shadow-navy/5 border border-white/50 hover:shadow-2xl hover:-translate-y-2 transition-all group relative overflow-hidden h-full flex flex-col">
+            <!-- Content Zip Card -->
+            <div data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>" class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 shadow-xl shadow-navy/5 border border-white/50 hover:shadow-2xl hover:-translate-y-2 transition-all group relative overflow-hidden h-full flex flex-col">
+                <?php if ($index === 0): ?>
                 <div class="absolute top-0 right-0 py-2 px-6 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest italic rounded-bl-3xl">
                     Main Asset
                 </div>
+                <?php endif; ?>
 
                 <div class="flex flex-col h-full">
                     <div class="w-16 h-16 rounded-2xl bg-blue-50 text-navy flex items-center justify-center mb-6 group-hover:bg-navy group-hover:text-white transition-colors duration-500">
@@ -113,8 +124,8 @@ include 'includes/sidebar.php';
                     </div>
                     
                     <div class="flex-1">
-                        <h3 class="font-black text-navy text-xl leading-tight uppercase italic mb-2 line-clamp-2">Course Package</h3>
-                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-6 italic">Full video lectures and materials</p>
+                        <h3 class="font-black text-navy text-xl leading-tight uppercase italic mb-2 line-clamp-2"><?php echo htmlspecialchars($display_name); ?></h3>
+                        <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-6 italic">Part of the course materials</p>
                         
                         <div class="flex items-center gap-3 mb-8">
                             <span class="text-[9px] font-black text-navy bg-navy/5 px-3 py-1 rounded-full uppercase italic tracking-widest"><?php echo $file_size; ?></span>
@@ -122,12 +133,13 @@ include 'includes/sidebar.php';
                         </div>
                     </div>
 
-                    <a href="<?php echo htmlspecialchars($course['video_zip']); ?>" download class="w-full bg-navy text-white py-4 rounded-2xl font-black uppercase italic tracking-widest text-xs flex items-center justify-center gap-3 shadow-xl shadow-navy/20 hover:bg-navy-dark transition-all group-hover:scale-[1.02]">
+                    <a href="<?php echo htmlspecialchars($zip_path); ?>" download class="w-full bg-navy text-white py-4 rounded-2xl font-black uppercase italic tracking-widest text-xs flex items-center justify-center gap-3 shadow-xl shadow-navy/20 hover:bg-navy-dark transition-all group-hover:scale-[1.02]">
                         <i data-lucide="download-cloud" class="w-5 h-5"></i>
                         Download Now
                     </a>
                 </div>
             </div>
+        <?php endforeach; ?>
         <?php else: ?>
             <div class="col-span-full py-20 px-10 text-center bg-white/80 backdrop-blur-xl rounded-[3rem] border-2 border-dashed border-white/50 flex flex-col items-center justify-center">
                 <div class="w-24 h-24 bg-navy/10 rounded-full flex items-center justify-center mb-6 text-navy/40">
