@@ -36,25 +36,32 @@ include 'includes/navbar.php';
 <div class="max-w-7xl mx-auto">
     <?php if ($msg): ?>
         <div class="mb-8 p-4 bg-green-50 border-l-4 border-green-500 text-green-700 rounded-xl">
-            <p class="text-sm font-bold italic"><?php echo $msg; ?></p>
+            <p class="text-sm font-bold"><?php echo $msg; ?></p>
         </div>
     <?php endif; ?>
 
     <div class="bg-white rounded-[2.5rem] shadow-sm border border-gray-100 overflow-hidden">
-        <div class="px-8 py-6 border-b border-gray-50 flex items-center justify-between">
-            <h2 class="text-xl font-black text-navy uppercase italic tracking-tight">Banner Gallery</h2>
-            <a href="add-banner.php" class="bg-navy text-white px-6 py-2 rounded-xl text-xs font-black uppercase tracking-widest italic hover:bg-navy-dark transition-all flex items-center gap-2">
-                <i data-lucide="plus" class="w-4 h-4"></i> Add Banner
-            </a>
+        <div class="px-8 py-6 border-b border-gray-50 flex flex-col md:flex-row items-center justify-between gap-4">
+            <h2 class="text-xl font-black text-navy uppercase tracking-tight shrink-0">Banner Gallery</h2>
+            
+            <div class="flex flex-1 items-center gap-4 w-full md:max-w-xl">
+                <div class="relative flex-1">
+                    <i data-lucide="search" class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 w-4 h-4"></i>
+                    <input type="text" id="adminSearchInput" placeholder="Search banners by order or date..." class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-gray-100 bg-gray-50/50 focus:outline-none focus:ring-4 focus:ring-navy/5 focus:border-navy transition-all text-xs font-bold">
+                </div>
+                <a href="add-banner.php" class="bg-navy text-white px-6 py-2.5 rounded-xl text-[11px] font-black uppercase tracking-widest hover:bg-navy-dark transition-all flex items-center gap-2 shrink-0">
+                    <i data-lucide="plus" class="w-4 h-4"></i> Add Banner
+                </a>
+            </div>
         </div>
 
         <div class="overflow-x-auto">
             <table class="w-full text-left border-collapse">
                 <thead>
                     <tr class="bg-gray-50/50">
-                        <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400 tracking-widest italic">Preview</th>
-                        <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400 tracking-widest italic">Order</th>
-                        <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400 tracking-widest italic">Action</th>
+                        <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400 tracking-widest">Preview</th>
+                        <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400 tracking-widest">Order</th>
+                        <th class="px-8 py-4 text-[10px] font-black uppercase text-gray-400 tracking-widest">Action</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
@@ -63,7 +70,7 @@ include 'includes/navbar.php';
                             <td colspan="3" class="px-8 py-20 text-center">
                                 <div class="flex flex-col items-center opacity-20">
                                     <i data-lucide="image" class="w-16 h-16 mb-4"></i>
-                                    <p class="font-black italic uppercase tracking-widest text-xs">No banners found</p>
+                                    <p class="font-black uppercase tracking-widest text-xs">No banners found</p>
                                 </div>
                             </td>
                         </tr>
