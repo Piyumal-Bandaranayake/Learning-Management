@@ -6,12 +6,10 @@ ehthumbs.db
 
 # IDEs and editors
 .idea/
-.vscode/
 *.swp
 *.swo
 
 # Environment & config
-.env
 phpinfo.php
 config/database.php
 
@@ -41,3 +39,4 @@ setup_database.bat
 
 # Database dumps (optional – uncomment if needed)
 # database.sql
+config.bat
