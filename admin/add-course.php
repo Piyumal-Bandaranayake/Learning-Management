@@ -61,8 +61,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if (!in_array($video_ext, $allowed_video)) {
                     $errors[] = "File '$video_name' is not a valid format. Only .zip allowed.";
-                } elseif ($video_size > 10 * 1024 * 1024 * 1024) { // 10GB
-                    $errors[] = "File '$video_name' exceeds 10GB limit.";
+                } elseif ($video_size > 30 * 1024 * 1024 * 1024) { // 30GB
+                    $errors[] = "File '$video_name' exceeds 30GB limit.";
                 } else {
                     $unique_name = uniqid('vid_', true) . '_' . $i . '.' . $video_ext;
                     $video_path = "uploads/course_videos/" . $unique_name;
@@ -281,8 +281,8 @@ include 'includes/navbar.php';
                                 zipInfoList.appendChild(fileDiv);
                             }
 
-                            if (totalSize > 10 * 1024 * 1024 * 1024) {
-                                alert('Total file size exceeds 10GB limit.');
+                            if (totalSize > 30 * 1024 * 1024 * 1024) {
+                                alert('Total file size exceeds 30GB limit.');
                                 this.value = '';
                                 zipInfoList.innerHTML = '';
                                 return;

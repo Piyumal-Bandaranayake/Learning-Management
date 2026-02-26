@@ -82,7 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $video_size = $_FILES['course_video']['size'][$i];
                 $video_ext = strtolower(pathinfo($video_name, PATHINFO_EXTENSION));
 
-                if (in_array($video_ext, $allowed_zip) && $video_size <= 10 * 1024 * 1024 * 1024) {
+                if (in_array($video_ext, $allowed_zip) && $video_size <= 30 * 1024 * 1024 * 1024) {
                     $unique_name = uniqid('vid_', true) . '_' . $i . '.' . $video_ext;
                     $video_path = "uploads/course_videos/" . $unique_name;
                     if (move_uploaded_file($video_tmp, "../" . $video_path)) {
