@@ -6,6 +6,10 @@ $db = getDBConnection();
 $errors = [];
 $success = "";
 
+if (isset($_GET['success']) && $_GET['success'] == '1') {
+    $success = "Timetable entry updated successfully!";
+}
+
 // Days of the week
 $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -82,13 +86,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt = $db->prepare("UPDATE timetable SET class_title = ?, short_description = ?, full_description = ?, instructor = ?, location = ?, day_name = ?, class_time = ?, duration = ?, class_image = ? WHERE id = ?");
             $stmt->execute([$class_title, $short_description, $full_description, $instructor, $location, $day_name, $class_time, $duration, $class_image, $id]);
-            $success = "Timetable entry updated successfully!";
             
-            // Refresh entry data
-            $stmt = $db->prepare("SELECT * FROM timetable WHERE id = ?");
-            $stmt->execute([$id]);
-            $entry = $stmt->fetch(PDO::FETCH_ASSOC);
-            
+            header("Location: edit-timetable.php?id=" . $id . "&success=1");
+            exit;
         } catch (PDOException $e) {
             $errors[] = "Database error: " . $e->getMessage();
         }

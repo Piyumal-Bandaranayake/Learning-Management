@@ -7,6 +7,10 @@ $db = getDBConnection();
 $errors = [];
 $success = "";
 
+if (isset($_GET['success']) && $_GET['success'] == '1') {
+    $success = "Banner added successfully!";
+}
+
 // Check current banner count
 $stmt = $db->query("SELECT COUNT(*) FROM banners");
 $banner_count = $stmt->fetchColumn();
@@ -44,9 +48,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && !$limit_reached) {
         try {
             $stmt = $db->prepare("INSERT INTO banners (image, display_order) VALUES (?, ?)");
             $stmt->execute([$image_path, $display_order]);
-            $success = "Banner added successfully!";
-            $banner_count++; // Update count for UI
-            $limit_reached = $banner_count >= 3;
+            header("Location: add-banner.php?success=1");
+            exit;
         } catch (PDOException $e) {
             $errors[] = "Database error: " . $e->getMessage();
         }

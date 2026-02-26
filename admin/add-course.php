@@ -7,6 +7,10 @@ $db = getDBConnection();
 $errors = [];
 $success = "";
 
+if (isset($_GET['success']) && $_GET['success'] == '1') {
+    $success = "Course created successfully!";
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $course_title = trim($_POST['course_title'] ?? '');
     $instructor = trim($_POST['instructor'] ?? '');
@@ -90,7 +94,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt = $db->prepare("INSERT INTO courses (course_title, instructor, description, duration, price, image, video_zip) VALUES (?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([$course_title, $instructor, $description, $duration, $price, $image_path, $video_path_string]);
-            $success = "Course created successfully!";
+            
+            header("Location: add-course.php?success=1");
+            exit;
         } catch (PDOException $e) {
             $errors[] = "Database error: " . $e->getMessage();
         }

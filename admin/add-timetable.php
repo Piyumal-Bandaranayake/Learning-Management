@@ -6,6 +6,10 @@ $db = getDBConnection();
 $errors = [];
 $success = "";
 
+if (isset($_GET['success']) && $_GET['success'] == '1') {
+    $success = "All class sessions added successfully!";
+}
+
 // Days of the week
 $days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
 
@@ -76,7 +80,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
             
             $db->commit();
-            $success = "All class sessions added successfully!";
+            header("Location: add-timetable.php?success=1");
+            exit;
         } catch (PDOException $e) {
             $db->rollBack();
             $errors[] = "Database error: " . $e->getMessage();
