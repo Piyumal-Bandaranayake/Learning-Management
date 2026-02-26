@@ -25,26 +25,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if (empty($errors)) {
-        $user_id = $_SESSION['user_id'];
+        $username = $_SESSION['username'];
         // Check in admins table specifically
-        $stmt = $db->prepare("SELECT password FROM admins WHERE id = ?");
-        $stmt->execute([$user_id]);
+        $stmt = $db->prepare("SELECT password FROM admins WHERE username = ?");
+        $stmt->execute([$username]);
         $user = $stmt->fetch();
 
         if ($user && password_verify($current_password, $user['password'])) {
             $hashed_password = password_hash($new_password, PASSWORD_BCRYPT);
-            $update_stmt = $db->prepare("UPDATE admins SET password = ? WHERE id = ?");
-            if ($update_stmt->execute([$hashed_password, $user_id])) {
+            
+            try {
+                $db->beginTransaction();
+                
+                // Update admins table
+                $update_admins = $db->prepare("UPDATE admins SET password = ? WHERE username = ?");
+                $update_admins->execute([$hashed_password, $username]);
+                
+                // Update users table
+                $update_users = $db->prepare("UPDATE users SET password = ? WHERE username = ? AND role = 'admin'");
+                $update_users->execute([$hashed_password, $username]);
+                
+                $db->commit();
+
                 $_SESSION['success_msg'] = "Password updated successfully! Please log in with your new credentials.";
-                // Clear sensitive session data but keep success message for the login page
+                // Clear sensitive session data
                 unset($_SESSION['user_id']);
                 unset($_SESSION['role']);
                 unset($_SESSION['name']);
+                unset($_SESSION['username']);
                 
                 header("Location: ../login.php");
                 exit;
-            } else {
-                $errors[] = "Failed to update password. Please try again.";
+            } catch (Exception $e) {
+                $db->rollBack();
+                $errors[] = "Failed to update password: " . $e->getMessage();
             }
         } else {
             $errors[] = "Current password is incorrect.";

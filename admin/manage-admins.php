@@ -57,28 +57,37 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['create_admin'])) {
 // Handle Admin Deletion
 if (isset($_GET['delete_id'])) {
     $delete_id = (int)$_GET['delete_id'];
+    $current_username = $_SESSION['username'];
     
-    // Prevent self-deletion if possible (or at least check)
-    // For now, let's just delete by ID
     try {
-        // We need to find the username first to delete from both tables
+        // Find the admin to be deleted
         $find = $db->prepare("SELECT username FROM admins WHERE id = ?");
         $find->execute([$delete_id]);
         $admin_to_del = $find->fetch();
         
         if ($admin_to_del) {
             $username_to_del = $admin_to_del['username'];
-            
-            // Delete from admins
-            $del1 = $db->prepare("DELETE FROM admins WHERE id = ?");
-            $del1->execute([$delete_id]);
-            
-            // Delete from users
-            $del2 = $db->prepare("DELETE FROM users WHERE username = ? AND role = 'admin'");
-            $del2->execute([$username_to_del]);
-            
-            header("Location: manage-admins.php?success=deleted");
-            exit;
+
+            // 1. Prevent deleting the primary 'admin'
+            if ($username_to_del === 'admin') {
+                $errors[] = "The primary administrator account cannot be deleted.";
+            } 
+            // 2. Prevent deleting yourself
+            else if ($username_to_del === $current_username) {
+                $errors[] = "You cannot delete your own account while logged in.";
+            } 
+            else {
+                // Delete from admins
+                $del1 = $db->prepare("DELETE FROM admins WHERE id = ?");
+                $del1->execute([$delete_id]);
+                
+                // Delete from users
+                $del2 = $db->prepare("DELETE FROM users WHERE username = ? AND role = 'admin'");
+                $del2->execute([$username_to_del]);
+                
+                header("Location: manage-admins.php?success=deleted");
+                exit;
+            }
         }
     } catch (PDOException $e) {
         $errors[] = "Delete error: " . $e->getMessage();
@@ -161,15 +170,18 @@ include 'includes/navbar.php';
                                     <button onclick="viewAdmin(<?php echo $admin['id']; ?>)" class="p-2 text-navy hover:bg-navy hover:text-white rounded-xl transition-all border border-navy/10 shadow-sm" title="View Details">
                                         <i data-lucide="eye" class="w-4 h-4"></i>
                                     </button>
-                                    <?php if ($admin['username'] !== 'admin'): ?>
-                                    <a href="?delete_id=<?php echo $admin['id']; ?>" 
-                                       onclick="return confirm('Are you sure you want to delete this admin account? This action cannot be undone.')"
-                                       class="p-2 text-red-500 hover:bg-red-500 hover:text-white rounded-xl transition-all border border-red-100 shadow-sm" 
-                                       title="Remove Admin">
-                                        <i data-lucide="trash-2" class="w-4 h-4"></i>
-                                    </a>
+                                    
+                                    <?php if ($admin['username'] === 'admin'): ?>
+                                        <span class="text-[8px] font-black text-gray-300 uppercase tracking-widest border border-gray-100 px-2 py-1.5 rounded-lg italic">Primary</span>
+                                    <?php elseif ($admin['username'] === $_SESSION['username']): ?>
+                                        <span class="text-[8px] font-black text-blue-400 uppercase tracking-widest border border-blue-50 px-2 py-1.5 rounded-lg italic bg-blue-50/30">You</span>
                                     <?php else: ?>
-                                    <span class="text-[8px] font-black text-gray-300 uppercase tracking-widest border border-gray-100 px-2 py-1.5 rounded-lg italic">Primary</span>
+                                        <a href="?delete_id=<?php echo $admin['id']; ?>" 
+                                           onclick="return confirm('Are you sure you want to delete this admin account? This action cannot be undone.')"
+                                           class="p-2 text-red-500 hover:bg-red-500 hover:text-white rounded-xl transition-all border border-red-100 shadow-sm" 
+                                           title="Remove Admin">
+                                            <i data-lucide="trash-2" class="w-4 h-4"></i>
+                                        </a>
                                     <?php endif; ?>
                                 </div>
                             </td>
