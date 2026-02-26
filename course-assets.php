@@ -95,24 +95,33 @@ include 'includes/sidebar.php';
             $video_files = [$video_zip_data];
         }
 
+        $has_files = false;
+        $valid_index = 0;
+
         if (!empty($video_files)): 
-            foreach ($video_files as $index => $zip_path):
-                $file_path = __DIR__ . '/' . $zip_path;
+            foreach ($video_files as $index => $zip_item):
+                $zip_path = is_array($zip_item) ? $zip_item['path'] : $zip_item;
+                $original_name = is_array($zip_item) && isset($zip_item['name']) ? $zip_item['name'] : basename($zip_path);
+
+                $file_path = $zip_path;
+                
+                // If file was deleted from server, skip it
+                if (!file_exists($file_path)) continue;
+                $has_files = true;
+
                 $file_size = 'N/A';
                 $file_ext = 'ZIP';
-                $display_name = "Course Package " . (count($video_files) > 1 ? ($index + 1) : "");
+                $display_name = $original_name;
                 
-                if (file_exists($file_path)) {
-                    $size_bytes = @filesize($file_path);
-                    if ($size_bytes) {
-                        $file_size = round($size_bytes / (1024 * 1024), 2) . ' MB';
-                    }
-                    $file_ext = strtoupper(pathinfo($file_path, PATHINFO_EXTENSION));
+                $size_bytes = @filesize($file_path);
+                if ($size_bytes) {
+                    $file_size = round($size_bytes / (1024 * 1024), 2) . ' MB';
                 }
+                $file_ext = strtoupper(pathinfo($file_path, PATHINFO_EXTENSION));
         ?>
             <!-- Content Zip Card -->
-            <div data-aos="fade-up" data-aos-delay="<?php echo $index * 100; ?>" class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 shadow-xl shadow-navy/5 border border-white/50 hover:shadow-2xl hover:-translate-y-2 transition-all group relative overflow-hidden h-full flex flex-col">
-                <?php if ($index === 0): ?>
+            <div data-aos="fade-up" data-aos-delay="<?php echo $valid_index * 100; ?>" class="bg-white/80 backdrop-blur-xl rounded-[2.5rem] p-8 shadow-xl shadow-navy/5 border border-white/50 hover:shadow-2xl hover:-translate-y-2 transition-all group relative overflow-hidden h-full flex flex-col">
+                <?php if ($valid_index === 0): ?>
                 <div class="absolute top-0 right-0 py-2 px-6 bg-blue-600 text-white text-[10px] font-black uppercase tracking-widest italic rounded-bl-3xl">
                     Main Asset
                 </div>
@@ -139,8 +148,13 @@ include 'includes/sidebar.php';
                     </a>
                 </div>
             </div>
-        <?php endforeach; ?>
-        <?php else: ?>
+        <?php 
+            $valid_index++;
+            endforeach; 
+        endif; 
+        
+        if (!$has_files): 
+        ?>
             <div class="col-span-full py-20 px-10 text-center bg-white/80 backdrop-blur-xl rounded-[3rem] border-2 border-dashed border-white/50 flex flex-col items-center justify-center">
                 <div class="w-24 h-24 bg-navy/10 rounded-full flex items-center justify-center mb-6 text-navy/40">
                     <i data-lucide="file-warning" class="w-12 h-12"></i>

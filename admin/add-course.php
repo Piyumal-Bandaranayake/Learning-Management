@@ -67,7 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $unique_name = uniqid('vid_', true) . '_' . $i . '.' . $video_ext;
                     $video_path = "uploads/course_videos/" . $unique_name;
                     if (move_uploaded_file($video_tmp, "../" . $video_path)) {
-                        $video_paths[] = $video_path;
+                        $video_paths[] = [
+                            'path' => $video_path,
+                            'name' => $video_name
+                        ];
                     } else {
                         $errors[] = "Failed to upload $video_name.";
                     }

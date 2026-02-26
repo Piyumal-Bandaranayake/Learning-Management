@@ -7,6 +7,10 @@ $db = getDBConnection();
 $errors = [];
 $success = "";
 
+if (isset($_GET['success']) && $_GET['success'] == '1') {
+    $success = "Course updated successfully!";
+}
+
 $id = $_GET['id'] ?? null;
 if (!$id) {
     header("Location: manage-courses.php");
@@ -63,11 +67,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Check which existing ones to keep
     $removed_zips = isset($_POST['removed_zips']) ? json_decode($_POST['removed_zips'], true) : [];
     foreach ($existing_videos as $v) {
-        if (!in_array($v, $removed_zips)) {
+        $path_to_check = is_array($v) ? $v['path'] : $v;
+        if (!in_array($path_to_check, $removed_zips)) {
             $keep_videos[] = $v;
         } else {
             // Physically delete the removed file
-            if (file_exists("../" . $v)) unlink("../" . $v);
+            if (file_exists("../" . $path_to_check)) unlink("../" . $path_to_check);
         }
     }
 
@@ -86,7 +91,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     $unique_name = uniqid('vid_', true) . '_' . $i . '.' . $video_ext;
                     $video_path = "uploads/course_videos/" . $unique_name;
                     if (move_uploaded_file($video_tmp, "../" . $video_path)) {
-                        $keep_videos[] = $video_path;
+                        $keep_videos[] = [
+                            'path' => $video_path,
+                            'name' => $video_name
+                        ];
                     }
                 } else {
                     $errors[] = "Invalid ZIP file '$video_name' or size too large.";
@@ -101,15 +109,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
             $stmt = $db->prepare("UPDATE courses SET course_title = ?, instructor = ?, description = ?, duration = ?, price = ?, image = ?, video_zip = ? WHERE id = ?");
             $stmt->execute([$course_title, $instructor, $description, $duration, $price, $image_path, $video_path_string, $id]);
-            $success = "Course updated successfully!";
-            // Update local object to show new data
-            $course['course_title'] = $course_title;
-            $course['instructor'] = $instructor;
-            $course['description'] = $description;
-            $course['duration'] = $duration;
-            $course['price'] = $price;
-            $course['image'] = $image_path;
-            $course['video_zip'] = $video_path_string;
+            
+            // Redirect to the same page using GET to prevent form resubmission warning
+            header("Location: edit-course.php?id=" . $id . "&success=1");
+            exit;
         } catch (PDOException $e) {
             $errors[] = "Database error: " . $e->getMessage();
         }
@@ -227,10 +230,10 @@ if (!$existing_videos) {
                             <!-- Current Files List -->
                             <div id="current-zips" class="w-full space-y-1 mt-2 opacity-50 group-hover:opacity-100 transition-opacity">
                                 <?php foreach ($existing_videos as $index => $v): ?>
-                                    <div class="flex items-center gap-2 px-3 py-1 bg-gray-100/50 rounded-lg border border-gray-200 existing-zip-item" data-path="<?php echo htmlspecialchars($v); ?>">
+                                    <div class="flex items-center gap-2 px-3 py-1 bg-gray-100/50 rounded-lg border border-gray-200 existing-zip-item" data-path="<?php echo htmlspecialchars(is_array($v) ? $v['path'] : $v); ?>">
                                         <i data-lucide="file-text" class="w-3 h-3 text-gray-400"></i>
-                                        <span class="text-[9px] font-medium text-gray-500 truncate"><?php echo basename($v); ?></span>
-                                        <button type="button" class="ml-auto p-1 text-red-400 hover:text-red-600 transition-colors remove-existing-btn" title="Remove this file">
+                                        <span class="text-[9px] font-medium text-gray-500 truncate"><?php echo htmlspecialchars(is_array($v) && isset($v['name']) ? $v['name'] : basename(is_array($v) ? $v['path'] : $v)); ?></span>
+                                        <button type="button" class="ml-auto p-1 text-red-400 hover:text-red-600 transition-colors remove-existing-btn relative z-30" title="Remove this file">
                                             <i data-lucide="trash-2" class="w-3 h-3"></i>
                                         </button>
                                     </div>
@@ -331,21 +334,30 @@ if (!$existing_videos) {
                     });
 
                     // Remove Existing Zip Logic
-                    let removedZips = [];
                     const removedZipsInput = document.getElementById('removed_zips');
+                    let removedZips = JSON.parse(sessionStorage.getItem('pending_removals_<?php echo $id; ?>') || '[]');
                     
+                    // Initial UI sync: hide already "deleted" items during this session
+                    document.querySelectorAll('.existing-zip-item').forEach(item => {
+                        const path = item.getAttribute('data-path');
+                        if (removedZips.includes(path)) {
+                            item.remove();
+                        }
+                    });
+                    removedZipsInput.value = JSON.stringify(removedZips);
+
                     document.querySelectorAll('.remove-existing-btn').forEach(btn => {
                         btn.addEventListener('click', function(e) {
-                            e.stopPropagation(); // Don't trigger file input
+                            e.stopPropagation(); 
                             const item = this.closest('.existing-zip-item');
                             const path = item.getAttribute('data-path');
                             
                             if (confirm('Are you sure you want to remove this file?')) {
                                 removedZips.push(path);
+                                sessionStorage.setItem('pending_removals_<?php echo $id; ?>', JSON.stringify(removedZips));
                                 removedZipsInput.value = JSON.stringify(removedZips);
                                 item.remove();
                                 
-                                // Update file count display if needed
                                 const countLabel = zipPlaceholder.querySelector('div');
                                 if (countLabel) {
                                     const currentCount = document.querySelectorAll('.existing-zip-item').length;
@@ -353,6 +365,11 @@ if (!$existing_videos) {
                                 }
                             }
                         });
+                    });
+
+                    // Clear session storage on successful form submission
+                    document.querySelector('form').addEventListener('submit', () => {
+                        sessionStorage.removeItem('pending_removals_<?php echo $id; ?>');
                     });
                 </script>
 
