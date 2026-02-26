@@ -95,6 +95,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <i data-lucide="image-plus" class="w-5 h-5"></i>
             <span>Add Banner</span>
         </a>
+
+        <div class="text-[10px] uppercase tracking-[0.2em] font-black text-blue-400/50 px-4 mt-8 mb-2">Staff Management</div>
+
+        <a href="manage-admins.php" class="flex items-center gap-3 px-4 py-3 rounded-xl transition-all <?php echo $current_page == 'manage-admins.php' ? 'bg-white text-navy font-bold shadow-xl shadow-black/10' : 'hover:bg-white/10 text-blue-100/70 hover:text-white'; ?>">
+            <i data-lucide="shield-check" class="w-5 h-5"></i>
+            <span>Manage Admins</span>
+        </a>
     </nav>
 
     <!-- Logout -->
