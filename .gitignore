@@ -13,6 +13,7 @@ ehthumbs.db
 # Environment & config
 .env
 phpinfo.php
+config/database.php
 
 # Logs & temp files
 *.log
@@ -33,6 +34,9 @@ composer.lock
 # Development / one-time scripts
 fix_database.php
 update_timetable_db.php
+update_timetable_location.php
+debug_db.php
+check_admins.php
 setup_database.bat
 
 # Database dumps (optional – uncomment if needed)
